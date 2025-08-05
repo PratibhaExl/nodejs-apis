@@ -368,7 +368,7 @@ const scrapeFullPageContent = async (req, res) => {
 //   }
 // };
 
-const scrapeRelevantContent = async (req, res) => {
+const scrapeRelevantContent_ = async (req, res) => {
   const { targetUrl } = req.body;
 
   try {
@@ -462,7 +462,7 @@ const scrapeRelevantContent = async (req, res) => {
           }
         }
 
-        // ✅ Handle video captions only if inside section or div
+        // Handle video captions only if inside section or div
         if (el.querySelector('video')) {
           const captionElements = Array.from(el.querySelectorAll('h2, h3, p, span'))
             .filter((e) => isVisible(e))
@@ -492,6 +492,65 @@ const scrapeRelevantContent = async (req, res) => {
     return res.status(500).json({ message: 'Error scraping content' });
   }
 };
+//removed r
+const scrapeRelevantContent = async (req, res) => {
+  const { targetUrl } = req.body;
 
+  try {
+    const browser = await puppeteer.launch({ headless: 'new' });
+    const page = await browser.newPage();
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+
+
+    const data = await page.evaluate(() => {
+      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+      const isVis = el => {
+        const s = window.getComputedStyle(el);
+        return s && s.display !== 'none' && s.visibility !== 'hidden'
+          && el.offsetHeight > 0 && el.offsetWidth > 0;
+      };
+
+      const shouldSkip = txt => {
+        const lc = txt.toLowerCase();
+        return !txt || txt.length < 20
+          || lc.includes('cookie') || lc.includes('embed');
+      };
+
+      const sections = [];
+
+      document.querySelectorAll('h2, h3').forEach(h => {
+        if (!isVis(h)) return;
+        const text = clean(h.textContent);
+        if (shouldSkip(text)) return;
+        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
+        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
+        const content = paragraph ? [clean(paragraph.textContent)] : [];
+        sections.push({ heading: text, content });
+      });
+
+      const focus = document.querySelector('section[class*="in‑focus"], div[class*="in‑focus"]');
+      if (focus) {
+        focus.querySelectorAll('a:not(.share)').forEach(card => {
+          const category = clean(card.querySelector('.eyebrow, .card‑category')?.textContent);
+          const title = clean(card.querySelector('h3, h4')?.textContent);
+          if (category && title) {
+            const heading = `In Focus: ${category}`;
+            sections.push({ heading, content: [title] });
+          }
+        });
+      }
+
+      return { url: window.location.href, title: clean(document.title), description: '', sections };
+    });
+
+
+
+    await browser.close();
+    return res.json(data);
+  } catch (err) {
+    console.error('Scraping failed:', err);
+    return res.status(500).json({ message: 'Error scraping content' });
+  }
+};
 
 export { scrapeUrl, GetScrapping, scrapeFullPageContent, scrapeRelevantContent };
