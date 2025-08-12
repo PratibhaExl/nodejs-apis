@@ -2,3 +2,125 @@
 
 http://localhost:6677/scrape-relevant
 {"targetUrl": ""}
+
+
+{{baseURL}}/scrape-relevant
+{"targetUrl": "https://www.tcs.com/what-we-do/industries/communications-media-information-services"}
+
+
+
+
+// active / inactive both in response with additional text
+const scrapeRelevantContent = async (req, res) => {
+  const { targetUrl } = req.body;
+
+  try {
+    const browser = await puppeteer.launch({ headless: 'new' });
+    const page = await browser.newPage();
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+
+    const data = await page.evaluate(() => {
+      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+
+      const sections = [];
+
+
+  //-------- normal text --------------
+
+      const isVis = el => {
+        const s = window.getComputedStyle(el);
+        return s && s.display !== 'none' && s.visibility !== 'hidden'
+          && el.offsetHeight > 0 && el.offsetWidth > 0;
+      };
+
+      const shouldSkip = txt => {
+        const lc = txt.toLowerCase();
+        return !txt || txt.length < 20
+          || lc.includes('cookie') || lc.includes('embed');
+      };
+
+
+      document.querySelectorAll('h2').forEach(h => {
+        if (!isVis(h)) return;
+        const text = clean(h.textContent);
+        if (shouldSkip(text)) return;
+        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
+        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
+        const content = paragraph ? [clean(paragraph.textContent)] : [];
+        sections.push({ heading: text, content });
+      });
+//-------- end normal text --------------
+
+
+      // -------- 1. Loop through each horizontal tab section --------
+      document.querySelectorAll('.horizontaltab-section').forEach(sectionEl => {
+        const mainCategory = clean(sectionEl.querySelector('.horizontaltab-section-title')?.textContent);
+
+        // Get all subcategory tabs
+        const subTabs = Array.from(sectionEl.querySelectorAll('.horizontaltab-nav-link'));
+
+        subTabs.forEach(tab => {
+          const subCategory = clean(tab.textContent);
+          const panelId = tab.getAttribute('href');
+          if (!panelId) return;
+
+          const panel = sectionEl.querySelector(panelId);
+          if (!panel) return;
+
+          // Extract cards inside each tab panel
+          const cards = Array.from(panel.querySelectorAll('a'))
+            .map(card => {
+              const title = clean(card.querySelector('h3, h4, p')?.textContent);
+              const href = card.getAttribute('href') || '';
+              return title ? (href ? `${title} (${href})` : title) : '';
+            })
+            .filter(Boolean);
+
+          if (cards.length) {
+            sections.push({
+              heading: mainCategory,
+              subcategory: subCategory,
+              content: cards
+            });
+          }
+        });
+      });
+
+      // -------- 2. Other standalone card sections (not horizontal tabs) --------
+      document.querySelectorAll('section').forEach(section => {
+        // Skip if already part of a horiz tab section
+        if (section.closest('.horizontaltab-section')) return;
+
+        const headingEl = section.querySelector('h2, h3');
+        if (!headingEl) return;
+
+        const heading = clean(headingEl.textContent);
+        const cards = Array.from(section.querySelectorAll('a'))
+          .map(card => {
+            const title = clean(card.querySelector('h3, h4, p')?.textContent);
+            const href = card.getAttribute('href') || '';
+            return title && title.length > 2 ? (href ? `${title} (${href})` : title) : '';
+          })
+          .filter(Boolean);
+
+        if (cards.length && heading) {
+          sections.push({ heading, content: cards });
+        }
+      });
+
+      return {
+        url: window.location.href,
+        title: clean(document.title),
+        description: '',
+        sections
+      };
+    });
+
+    await browser.close();
+    res.json(data);
+
+  } catch (err) {
+    console.error('Scraping failed:', err);
+    res.status(500).json({ message: 'Error scraping content' });
+  }
+};
