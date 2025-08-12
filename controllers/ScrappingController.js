@@ -1,13 +1,5 @@
 import puppeteer from 'puppeteer';
 
-// import fs from 'fs';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// import { Document, Packer, Paragraph, HeadingLevel } from 'docx';
-import ExcelJS from 'exceljs';
-
-
-
 const scrapeUrl = async (req, res) => {
   const { targetUrl } = req.body;
 
@@ -185,7 +177,6 @@ const scrapeFullPageContent = async (req, res) => {
   }
 };
 
-// with found urls 
 // const scrapeRelevantContent = async (req, res) => {
 //   const { targetUrl } = req.body;
 
@@ -377,7 +368,131 @@ const scrapeFullPageContent = async (req, res) => {
 //   }
 // };
 
-//structured nessessary data only
+const scrapeRelevantContent_ = async (req, res) => {
+  const { targetUrl } = req.body;
+
+  try {
+    const browser = await puppeteer.launch({ headless: 'new' });
+    const page = await browser.newPage();
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+
+    const data = await page.evaluate(() => {
+      const cleanText = (text) =>
+        (text || '')
+          .replace(/\\+/g, '') // Remove all backslashes
+          .replace(/\n/g, ' ') // Remove newlines
+          .replace(/\s+/g, ' ') // Normalize spacing
+          .trim();
+
+      const isVisible = (el) => {
+        const style = window.getComputedStyle(el);
+        return (
+          style &&
+          style.display !== 'none' &&
+          style.visibility !== 'hidden' &&
+          el.offsetHeight > 0 &&
+          el.offsetWidth > 0
+        );
+      };
+
+      const shouldExclude = (text) => {
+        const lower = text.toLowerCase();
+        return (
+          !text ||
+          text.length < 30 ||
+          lower.includes('cookie') ||
+          lower.includes('privacy') ||
+          lower.includes('login') ||
+          lower.includes('©') ||
+          lower.includes('audio') ||
+          lower.includes('wrong email') ||
+          lower.includes('item 1 of 1') ||
+          lower.includes('share this') ||
+          lower.includes('select all') ||
+          lower.includes('transcript') ||
+          lower.includes('download') ||
+          lower.includes('embed link') ||
+          lower.includes('email address') ||
+          /corine adams/i.test(text) || //  testimonial filter
+          /^0:\d{2}/.test(text) || //  timecodes like 0:00
+          /item \d+ of \d+/i.test(text) || //  carousel count
+          /tcs' expertise/i.test(lower) || //  repeated quote text
+          /made them the perfect partner/i.test(lower)
+        );
+      };
+
+
+      const webPageInfo = {
+        url: window.location.href,
+        title: cleanText(document.title),
+        description: '',
+        sections: [],
+        videos: []
+      };
+
+      // Description
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        webPageInfo.description = cleanText(metaDesc.getAttribute('content'));
+      }
+
+      const sectionMap = new Map();
+      let currentHeading = null;
+
+      const elements = Array.from(document.body.querySelectorAll('h1, h2, h3, p, div, span, section'));
+
+      for (const el of elements) {
+        if (!isVisible(el)) continue;
+
+        const tag = el.tagName.toLowerCase();
+        let text = cleanText(el.textContent);
+
+        if (['h1', 'h2', 'h3'].includes(tag) && !shouldExclude(text)) {
+          currentHeading = text;
+          if (!sectionMap.has(currentHeading)) {
+            sectionMap.set(currentHeading, []);
+          }
+        } else if (['p', 'div', 'span'].includes(tag)) {
+          if (!shouldExclude(text) && currentHeading) {
+            const existing = sectionMap.get(currentHeading) || [];
+            if (!existing.includes(text)) {
+              existing.push(text);
+              sectionMap.set(currentHeading, existing);
+            }
+          }
+        }
+
+        // Handle video captions only if inside section or div
+        if (el.querySelector('video')) {
+          const captionElements = Array.from(el.querySelectorAll('h2, h3, p, span'))
+            .filter((e) => isVisible(e))
+            .map((e) => cleanText(e.textContent))
+            .filter((t) => !shouldExclude(t));
+
+          for (const caption of captionElements) {
+            if (caption && !webPageInfo.videos.includes(caption)) {
+              webPageInfo.videos.push(caption);
+            }
+          }
+        }
+      }
+
+      webPageInfo.sections = Array.from(sectionMap.entries()).map(([heading, content]) => ({
+        heading: cleanText(heading),
+        content: content.map(cleanText)
+      }));
+
+      return webPageInfo;
+    });
+
+    await browser.close();
+    return res.json(data);
+  } catch (err) {
+    console.error('Scraping failed:', err);
+    return res.status(500).json({ message: 'Error scraping content' });
+  }
+};
+//removed r
 const scrapeRelevantContent = async (req, res) => {
   const { targetUrl } = req.body;
 
@@ -386,116 +501,49 @@ const scrapeRelevantContent = async (req, res) => {
     const page = await browser.newPage();
     await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
 
-const data = await page.evaluate(() => {
-  const cleanText = (text) =>
-    (text || '')
-      .replace(/\\+/g, '')
-      .replace(/\n/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
 
-  const isVisible = (el) => {
-    const style = window.getComputedStyle(el);
-    return (
-      style.display !== 'none' &&
-      style.visibility !== 'hidden' &&
-      el.offsetHeight > 0 &&
-      el.offsetWidth > 0
-    );
-  };
+    const data = await page.evaluate(() => {
+      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+      const isVis = el => {
+        const s = window.getComputedStyle(el);
+        return s && s.display !== 'none' && s.visibility !== 'hidden'
+          && el.offsetHeight > 0 && el.offsetWidth > 0;
+      };
 
-  const shouldExclude = (text, tag = '') => {
-    const lower = text.toLowerCase();
-    if (!text) return true;
+      const shouldSkip = txt => {
+        const lc = txt.toLowerCase();
+        return !txt || txt.length < 20
+          || lc.includes('cookie') || lc.includes('embed');
+      };
 
-    const isTooShort = text.length < 30 && !['h1', 'h2', 'h3'].includes(tag);
+      const sections = [];
 
-    return (
-      isTooShort ||
-      lower.includes('cookie') ||
-      lower.includes('privacy') ||
-      lower.includes('login') ||
-      lower.includes('©') ||
-      lower.includes('audio') ||
-      lower.includes('wrong email') ||
-      lower.includes('item 1 of 1') ||
-      lower.includes('share this') ||
-      lower.includes('select all') ||
-      lower.includes('transcript') ||
-      lower.includes('download') ||
-      lower.includes('embed link') ||
-      lower.includes('email address') ||
-      /corine adams/i.test(text) ||
-      /^0:\d{2}/.test(text) ||
-      /item \d+ of \d+/i.test(text) ||
-      /tcs' expertise/i.test(lower) ||
-      /made them the perfect partner/i.test(lower)
-    );
-  };
+      document.querySelectorAll('h2, h3').forEach(h => {
+        if (!isVis(h)) return;
+        const text = clean(h.textContent);
+        if (shouldSkip(text)) return;
+        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
+        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
+        const content = paragraph ? [clean(paragraph.textContent)] : [];
+        sections.push({ heading: text, content });
+      });
 
-  const webPageInfo = {
-    url: window.location.href,
-    title: cleanText(document.title),
-    description: '',
-    sections: [],
-    videos: []
-  };
-
-  const metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) {
-    webPageInfo.description = cleanText(metaDesc.getAttribute('content'));
-  }
-
-  const sectionMap = new Map();
-  const globalSeen = new Set(); // ✅ Global memory to avoid duplicate anywhere
-
-  let currentHeading = null;
-  const elements = Array.from(document.body.querySelectorAll('h1, h2, h3, p, div, span, section'));
-
-  for (const el of elements) {
-    if (!isVisible(el)) continue;
-
-    const tag = el.tagName.toLowerCase();
-    const text = cleanText(el.textContent);
-
-    if (['h1', 'h2', 'h3'].includes(tag) && !shouldExclude(text, tag)) {
-      currentHeading = text;
-      if (!sectionMap.has(currentHeading)) {
-        sectionMap.set(currentHeading, []);
+      const focus = document.querySelector('section[class*="in‑focus"], div[class*="in‑focus"]');
+      if (focus) {
+        focus.querySelectorAll('a:not(.share)').forEach(card => {
+          const category = clean(card.querySelector('.eyebrow, .card‑category')?.textContent);
+          const title = clean(card.querySelector('h3, h4')?.textContent);
+          if (category && title) {
+            const heading = `In Focus: ${category}`;
+            sections.push({ heading, content: [title] });
+          }
+        });
       }
-    } else if (['p', 'div', 'span'].includes(tag)) {
-      if (!shouldExclude(text, tag) && currentHeading) {
-        const key = `${currentHeading}::${text}`;
-        if (!globalSeen.has(key)) {
-          globalSeen.add(key);
-          const existing = sectionMap.get(currentHeading) || [];
-          existing.push(text);
-          sectionMap.set(currentHeading, existing);
-        }
-      }
-    }
 
-    if (el.querySelector('video')) {
-      const captionElements = Array.from(el.querySelectorAll('h2, h3, p, span'))
-        .filter((e) => isVisible(e))
-        .map((e) => cleanText(e.textContent))
-        .filter((t) => !shouldExclude(t));
+      return { url: window.location.href, title: clean(document.title), description: '', sections };
+    });
 
-      for (const caption of captionElements) {
-        if (caption && !webPageInfo.videos.includes(caption)) {
-          webPageInfo.videos.push(caption);
-        }
-      }
-    }
-  }
 
-  webPageInfo.sections = Array.from(sectionMap.entries()).map(([heading, content]) => ({
-    heading: cleanText(heading),
-    content
-  }));
-
-  return webPageInfo;
-});
 
     await browser.close();
     return res.json(data);
@@ -505,184 +553,97 @@ const data = await page.evaluate(() => {
   }
 };
 
-//download in excel 
-// const scrapeRelevantContentWithDownload = async (req, res) => {
-//   try {
-//     const { sections = [], videos = [] } = req.body;
+//12aug
 
-//     const workbook = new ExcelJS.Workbook();
-//     const sheet = workbook.addWorksheet('Web Content');
+const scrapeRelevantContentn = async (req, res) => {
+  const { targetUrl } = req.body;
 
-//     // Set headers with styles
-//     sheet.columns = [
-//       { header: 'Heading', key: 'heading', width: 40 },
-//       { header: 'Content', key: 'content', width: 100 }
-//     ];
+  try {
+    const browser = await puppeteer.launch({ headless: 'new' });
+    const page = await browser.newPage();
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
 
-//     sheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
-//     sheet.getRow(1).fill = {
-//       type: 'pattern',
-//       pattern: 'solid',
-//       fgColor: { argb: 'FF0073E6' }
-//     };
+    const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
 
-//     // Add main content
-//     for (const section of sections) {
-//       sheet.addRow({
-//         heading: section.heading,
-//         content: section.content.join('\n\n')
-//       });
-//     }
+    // Get all tab selectors before scraping
+    const tabSelectors = await page.$$eval(
+      'button[role="tab"], a[role="tab"]',
+      tabs => tabs.map(tab => ({
+        text: tab.innerText.trim(),
+        selector: tab.tagName.toLowerCase() === 'a'
+          ? `a[role="tab"]:nth-of-type(${Array.from(tab.parentElement.children).indexOf(tab) + 1})`
+          : `button[role="tab"]:nth-of-type(${Array.from(tab.parentElement.children).indexOf(tab) + 1})`
+      }))
+    );
 
-//     // Add video section
-//     if (videos.length > 0) {
-//       sheet.addRow([]);
-//       sheet.addRow({ heading: '🎥 Video Captions', content: '' }).font = { bold: true };
-//       videos.forEach((video) => {
-//         sheet.addRow({ heading: '', content: video });
-//       });
-//     }
+    const allSections = [];
 
-//     // Format all rows (wrap text)
-//     sheet.eachRow((row, rowNumber) => {
-//       row.alignment = { vertical: 'top', wrapText: true };
-//     });
+    // Function to scrape current tab
+    const scrapeTab = async () => {
+      const tabData = await page.evaluate(() => {
+        const clean = txt => (txt || '').replace(/\n/g,' ').replace(/\s+/g,' ').trim();
+        const isVis = el => {
+          const s = window.getComputedStyle(el);
+          return s && s.display !== 'none' && s.visibility !== 'hidden' 
+            && el.offsetHeight > 0 && el.offsetWidth > 0;
+        };
+        const shouldSkip = txt => {
+          const lc = txt.toLowerCase();
+          return !txt || txt.length < 20 
+            || lc.includes('cookie') || lc.includes('embed');
+        };
+        const sections = [];
+        
+        document.querySelectorAll('h2, h3, p, span').forEach(h => {
+          if (!isVis(h)) return;
+          const text = clean(h.textContent);
+          if (shouldSkip(text)) return;
+          const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
+          let paragraph = next.find(el => ['P','DIV','SPAN'].includes(el.tagName) && isVis(el));
+          const content = paragraph ? [clean(paragraph.textContent)] : [];
+          sections.push({ heading: text, content });
+        });
 
-//     const buffer = await workbook.xlsx.writeBuffer();
-//     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-//     res.setHeader('Content-Disposition', 'attachment; filename=TCS_Content.xlsx');
-//     res.send(buffer);
-//   } catch (err) {
-//     console.error('Excel generation failed:', err);
-//     res.status(500).json({ message: 'Excel generation failed' });
-//   }
-// };
+        const focus = document.querySelector('section[class*="in-focus"], div[class*="in-focus"]');
+        if (focus) {
+          focus.querySelectorAll('a:not(.share)').forEach(card => {
+            const category = clean(card.querySelector('.eyebrow, .card-category')?.textContent);
+            const title = clean(card.querySelector('h3, h4')?.textContent);
+            const href = card.href || '';
+            if (category && title) {
+              const heading = `In Focus: ${category}`;
+              sections.push({ heading, content: [title], href: href || undefined });
+            }
+          });
+        }
+        return sections;
+      });
+      allSections.push(...tabData);
+    };
 
-// const scrapeRelevantContent = async (req, res) => {
-//   const { targetUrl } = req.body;
+    // Scrape default visible tab
+    await scrapeTab();
 
-//   try {
-//     const browser = await puppeteer.launch({ headless: 'new' });
-//     const page = await browser.newPage();
-//     await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+    // Simulate clicking other tabs and scrape their content
+    for (let i = 0; i < tabSelectors.length; i++) {
+      await page.click(tabSelectors[i].selector);
+      await page.waitForTimeout(1500); // wait for tab content to load
+      await scrapeTab();
+    }
 
-//     const data = await page.evaluate(() => {
-//       const cleanText = (text) =>
-//         (text || '')
-//           .replace(/\\+/g, '') // Remove all backslashes
-//           .replace(/\n/g, ' ') // Remove newlines
-//           .replace(/\s+/g, ' ') // Normalize spacing
-//           .trim();
+    await browser.close();
 
-//       const isVisible = (el) => {
-//         const style = window.getComputedStyle(el);
-//         return (
-//           style &&
-//           style.display !== 'none' &&
-//           style.visibility !== 'hidden' &&
-//           el.offsetHeight > 0 &&
-//           el.offsetWidth > 0
-//         );
-//       };
-
-//       const shouldExclude = (text) => {
-//         const lower = text.toLowerCase();
-//         return (
-//           !text ||
-//           text.length < 30 ||
-//           lower.includes('cookie') ||
-//           lower.includes('privacy') ||
-//           lower.includes('login') ||
-//           lower.includes('©') ||
-//           lower.includes('audio') ||
-//           lower.includes('wrong email') ||
-//           lower.includes('item 1 of 1') ||
-//           lower.includes('share this') ||
-//           lower.includes('select all') ||
-//           lower.includes('transcript') ||
-//           lower.includes('download') ||
-//           lower.includes('embed link') ||
-//           lower.includes('email address') ||
-//           /corine adams/i.test(text) || //  testimonial filter
-//           /^0:\d{2}/.test(text) || //  timecodes like 0:00
-//           /item \d+ of \d+/i.test(text) || //  carousel count
-//           /tcs' expertise/i.test(lower) || //  repeated quote text
-//           /made them the perfect partner/i.test(lower)
-//         );
-//       };
-
-
-//       const webPageInfo = {
-//         url: window.location.href,
-//         title: cleanText(document.title),
-//         description: '',
-//         sections: [],
-//         videos: []
-//       };
-
-//       // Description
-//       const metaDesc = document.querySelector('meta[name="description"]');
-//       if (metaDesc) {
-//         webPageInfo.description = cleanText(metaDesc.getAttribute('content'));
-//       }
-
-//       const sectionMap = new Map();
-//       let currentHeading = null;
-
-//       const elements = Array.from(document.body.querySelectorAll('h1, h2, h3, p, div, span, section'));
-
-//       for (const el of elements) {
-//         if (!isVisible(el)) continue;
-
-//         const tag = el.tagName.toLowerCase();
-//         let text = cleanText(el.textContent);
-
-//         if (['h1', 'h2', 'h3'].includes(tag) && !shouldExclude(text)) {
-//           currentHeading = text;
-//           if (!sectionMap.has(currentHeading)) {
-//             sectionMap.set(currentHeading, []);
-//           }
-//         } else if (['p', 'div', 'span'].includes(tag)) {
-//           if (!shouldExclude(text) && currentHeading) {
-//             const existing = sectionMap.get(currentHeading) || [];
-//             if (!existing.includes(text)) {
-//               existing.push(text);
-//               sectionMap.set(currentHeading, existing);
-//             }
-//           }
-//         }
-
-//         // ✅ Handle video captions only if inside section or div
-//         if (el.querySelector('video')) {
-//           const captionElements = Array.from(el.querySelectorAll('h2, h3, p, span'))
-//             .filter((e) => isVisible(e))
-//             .map((e) => cleanText(e.textContent))
-//             .filter((t) => !shouldExclude(t));
-
-//           for (const caption of captionElements) {
-//             if (caption && !webPageInfo.videos.includes(caption)) {
-//               webPageInfo.videos.push(caption);
-//             }
-//           }
-//         }
-//       }
-
-//       webPageInfo.sections = Array.from(sectionMap.entries()).map(([heading, content]) => ({
-//         heading: cleanText(heading),
-//         content: content.map(cleanText)
-//       }));
-
-//       return webPageInfo;
-//     });
-
-//     await browser.close();
-//     return res.json(data);
-//   } catch (err) {
-//     console.error('Scraping failed:', err);
-//     return res.status(500).json({ message: 'Error scraping content' });
-//   }
-// };
-
+    return res.json({
+      url: targetUrl,
+      title: clean(await page.title()),
+      description: '',
+      sections: allSections
+    });
+  } catch (err) {
+    console.error('Scraping failed:', err);
+    return res.status(500).json({ message: 'Error scraping content' });
+  }
+};
 
 
 export { scrapeUrl, GetScrapping, scrapeFullPageContent, scrapeRelevantContent };
