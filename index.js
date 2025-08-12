@@ -3,18 +3,22 @@ import express, { response } from 'express';
 import ScrappingRoutes from './routes/ScrappingRoutes.js';
 import cors from 'cors';
 import path from 'path';
-
+import { fileURLToPath } from 'url';
 
 const PORT = 6677;
 const app = express();
 
 app.use(express.json());//parse all body request 
-app.use(express.static('assets'));
-//app.use(cors());
-// app.use(cors({
-//   origin: 'http://localhost:3000', //  app URL
-//   methods: ['GET', 'POST'],
-// }));
+//app.use(express.static('assets'));
+app.use(express.json());
+
+// __dirname equivalent in ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve downloads publicly
+app.use('/downloads', express.static(path.join(__dirname, 'public/downloads')));
+
 
 app.use(cors()); // Allow all origins
 app.use("", ScrappingRoutes);
