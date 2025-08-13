@@ -295,6 +295,8 @@ const scrapeRelevantContent_Merge = async (req, res) => {
   }
 };
 
+
+
 const scrapeRelevantContent = async (req, res) => {
   const { targetUrl } = req.body;
 
@@ -310,7 +312,6 @@ const scrapeRelevantContent = async (req, res) => {
 
 
       //-------- normal text --------------
-
       const isVis = el => {
         const s = window.getComputedStyle(el);
         return s && s.display !== 'none' && s.visibility !== 'hidden'
@@ -324,15 +325,28 @@ const scrapeRelevantContent = async (req, res) => {
           || txt.trim().toLowerCase() === 'get to know us better'; // Skip this heading entirely
       };
 
+      //check exiting text or duplicate removal.
+      const existsInSections = (sections, text) => {
+        const cleanText = text.toLowerCase();
+        return sections.some(sec =>
+          sec.heading.toLowerCase() === cleanText ||
+          (sec.content && sec.content.some(c => c.toLowerCase() === cleanText))
+        );
+      };
 
-      document.querySelectorAll('h2').forEach(h => {
+
+
+      document.querySelectorAll('h2,p').forEach(h => {
         if (!isVis(h)) return;
         const text = clean(h.textContent);
         if (shouldSkip(text)) return;
         const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
         let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
         const content = paragraph ? [clean(paragraph.textContent)] : [];
-        sections.push({ heading: text, content });
+        //sections.push({ heading: text, content });
+        if (text && !existsInSections(sections, text) && (content.length > 0 || text.length > 0)) {
+          sections.push({ heading: text, content });
+        }
       });
       //-------- end normal text --------------
 
@@ -386,7 +400,10 @@ const scrapeRelevantContent = async (req, res) => {
             const title = clean(card.querySelector('h3, h4, p')?.textContent);
             const href = card.getAttribute('href') || '';
             // return title && title.length > 2 ? (href ? `${title} (${href})` : title) : '';
-            return title && title.length > 2 ? (href ? `${title} (${href})` : title) : '';
+            return title && title.length > 2 ? (href ? `${title} href:(${href})` : title) : '';
+
+            //const title_href = {"title":title && title.length > 2 ? title : '', "href":href?href:''}
+            //return title_href;
           })
           .filter(Boolean);
 
