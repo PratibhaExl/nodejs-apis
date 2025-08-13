@@ -336,7 +336,7 @@ const scrapeRelevantContent = async (req, res) => {
 
 
 
-      document.querySelectorAll('h2,p').forEach(h => {
+      document.querySelectorAll('h1,h2,p').forEach(h => {
         if (!isVis(h)) return;
         const text = clean(h.textContent);
         if (shouldSkip(text)) return;
