@@ -1,297 +1,1076 @@
 {
     "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
-    "title": "Connect. Curate. Comprehend: Unlocking Value Beyond Boundaries",
-    "description": "",
+    "pageNumber": 1,
+    "breadcrumbs": [
+        {
+            "text": "CMI",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+            "page": 1
+        },
+        {
+            "text": "Communications",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+            "page": 2
+        },
+        {
+            "text": "Media",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+            "page": 2
+        },
+        {
+            "text": "Information Services",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+            "page": 2
+        }
+    ],
     "sections": [
         {
-            "heading": "Innovate to excite",
-            "content": [
-                "The digital revolution has dramatically altered the consumption of data, content, and information. In order to keep up with today's consumer, communications, media, and information services (CMI) companies have to move up the value chain to become custodians of digital experiences. For telecom companies, this means ensuring secure and resilient communications while creating ecosystems for bundling products and services. Media companies need to engage and inspire consumers through captivating content delivered anytime, anywhere. And information services firms need to find ways to uncover deep insights from data."
-            ]
-        },
-        {
-            "heading": "Plotting a Course Toward Autonomous Operations - A Heavy Reading white paper produced for TCS",
-            "content": [
-                "Heavy Reading conducted a survey in March 2025 to assess where communications service providers (CSPs) are in planning for and implementing autonomous operations (AO) at the close of 1Q25 and how they are defining the partnerships, technologies, and strategic initiatives that will enable them to succeed in 2025 and beyond."
-            ]
-        },
-        {
-            "heading": "In Focus: Thought leadership",
-            "content": [
-                "Technology trends 2025: Reshaping the future of telecom (/content/tcs/global/en/insights/blogs/technology-trends-2025-reshape-future-telecom)",
-                "AI in media and entertainment: Transforming business models for growth (/content/tcs/global/en/insights/blogs/ai-transforming-media-entertainment-value-chain)",
-                "Key trends in information services to enhance customer experiences (/content/tcs/global/en/insights/blogs/information-services-key-trends-enhance-cx)",
-                "Leveraging AI implementation in communications and media (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/leveraging-ai-implementation-communication-media)",
-                "Balancing AI and Regulatory Compliance in Information Services (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/balancing-ai-regulatory-compliance-information-services)"
-            ]
-        },
-        {
-            "heading": "In Focus: Case studies",
-            "content": [
-                "TCS aids BT Sport’s Commercial rebranding, WBD integration (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/bt-sport-merger-rebranding)",
-                "Vodafone UK Collaborates with TCS to Enhance Business Agility, CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/vodafone-uk-collaborates-tcs-enhance-business-agility)",
-                "TCS Helps Thryv Improve Employee Productivity and CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/automated-solution-improve-employee-productivity-cx)",
-                "Equifax UK modernizes identity and fraud platform (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/uk-credit-bureau-modernizes-identity-verification-platform)",
-                "Proximus Achieves Seamless Collaboration with Smart Automation (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/proximus-create-digital-workplace-smart-automation)"
-            ]
-        },
-        {
-            "heading": "In Focus: Press releases",
-            "content": [
-                "TCS to Steer Cloud Migration Program for Finnish Telecom Leader DNA in a Five-Year Partnership (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-steer-cloud-migration-program-finnish-telecom-leader-dna-five-year-partnership)",
-                "TCS Partners with Vantage Towers to Revolutionize Telecom Site Management Across Europe (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-partners-with-vantage-towers-to-revolutionize-telecom-site-management-across-europe)",
-                "TCS Partners with Google Cloud to Accelerate AI-led Transformation for Telecom Customers (/content/tcs/global/en/who-we-are/newsroom/news-alert/tcs-partners-google-cloud-accelerate-ai-led-transformation-telecom-customers)",
-                "TCS Signs Five-Year Deal with Telenor Denmark to Deliver IT Infrastructure Services (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-signs-five-year-deal-with-telenor-denmark-deliver-it-infrastructure-services)",
-                "Nuuday Signs Major Cloud Transformation Deal with TCS (/content/tcs/global/en/who-we-are/newsroom/press-release/nuuday-signs-major-cloud-transformation-deal-with-tcs)",
-                "TCS Launches NVIDIA Business Unit to Accelerate AI Adoption for Customers Across Industries (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-launches-nvidia-business-unit-accelerate-ai-adoption-customers-across-industries)"
-            ]
-        },
-        {
-            "heading": "In Focus: Events",
-            "content": [
-                "TCS at IBC 2025: Explore the Future of Media and Entertainment (/content/tcs/global/en/who-we-are/events/tcs-at-ibc-2025-amsterdam)",
-                "TCS at TM Forum DTW Ignite 2025: Key Highlights of the Event (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/article/tm-forum-dtw-2025-key-highlights)",
-                "TCS is the Silver Partner at TM Forum Innovate Asia 2024 (/content/tcs/global/en/who-we-are/events/tcs-silver-partner-tm-forum-innovate-asia-2024)"
-            ]
-        },
-        {
-            "heading": "In Focus: Analyst recognitions",
-            "content": [
-                "TCS Recognized as a Leader in Custom Application Development Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-leader-custom-application-development-services-everest-group)",
-                "TCS Named a Leader in Application Management Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-named-leader-application-management-services-everest-group)",
-                "TCS Recognized as a Leader in Gartner Magic Quadrant for Worldwide Cloud ERP Services (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-as-leader-in-gartner-magic-quadrant-for-worldwide-cloud-erp-services)",
-                "TCS Positioned as a Leader in North America and Europe Cybersecurity Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-positioned-leader-north-america-europe-cybersecurity-services-everest-group)"
-            ]
-        },
-        {
-            "heading": "In Focus: Thought leadership",
-            "content": [
-                "Technology trends 2025: Reshaping the future of telecom (/content/tcs/global/en/insights/blogs/technology-trends-2025-reshape-future-telecom)",
-                "AI in media and entertainment: Transforming business models for growth (/content/tcs/global/en/insights/blogs/ai-transforming-media-entertainment-value-chain)",
-                "Key trends in information services to enhance customer experiences (/content/tcs/global/en/insights/blogs/information-services-key-trends-enhance-cx)",
-                "Leveraging AI implementation in communications and media (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/leveraging-ai-implementation-communication-media)",
-                "Balancing AI and Regulatory Compliance in Information Services (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/balancing-ai-regulatory-compliance-information-services)"
-            ]
-        },
-        {
-            "heading": "In Focus: Case studies",
-            "content": [
-                "TCS aids BT Sport’s Commercial rebranding, WBD integration (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/bt-sport-merger-rebranding)",
-                "Vodafone UK Collaborates with TCS to Enhance Business Agility, CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/vodafone-uk-collaborates-tcs-enhance-business-agility)",
-                "TCS Helps Thryv Improve Employee Productivity and CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/automated-solution-improve-employee-productivity-cx)",
-                "Equifax UK modernizes identity and fraud platform (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/uk-credit-bureau-modernizes-identity-verification-platform)",
-                "Proximus Achieves Seamless Collaboration with Smart Automation (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/proximus-create-digital-workplace-smart-automation)"
-            ]
-        },
-        {
-            "heading": "In Focus: Press releases",
-            "content": [
-                "TCS to Steer Cloud Migration Program for Finnish Telecom Leader DNA in a Five-Year Partnership (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-steer-cloud-migration-program-finnish-telecom-leader-dna-five-year-partnership)",
-                "TCS Partners with Vantage Towers to Revolutionize Telecom Site Management Across Europe (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-partners-with-vantage-towers-to-revolutionize-telecom-site-management-across-europe)",
-                "TCS Partners with Google Cloud to Accelerate AI-led Transformation for Telecom Customers (/content/tcs/global/en/who-we-are/newsroom/news-alert/tcs-partners-google-cloud-accelerate-ai-led-transformation-telecom-customers)",
-                "TCS Signs Five-Year Deal with Telenor Denmark to Deliver IT Infrastructure Services (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-signs-five-year-deal-with-telenor-denmark-deliver-it-infrastructure-services)",
-                "Nuuday Signs Major Cloud Transformation Deal with TCS (/content/tcs/global/en/who-we-are/newsroom/press-release/nuuday-signs-major-cloud-transformation-deal-with-tcs)",
-                "TCS Launches NVIDIA Business Unit to Accelerate AI Adoption for Customers Across Industries (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-launches-nvidia-business-unit-accelerate-ai-adoption-customers-across-industries)"
-            ]
-        },
-        {
-            "heading": "In Focus: Events",
-            "content": [
-                "TCS at IBC 2025: Explore the Future of Media and Entertainment (/content/tcs/global/en/who-we-are/events/tcs-at-ibc-2025-amsterdam)",
-                "TCS at TM Forum DTW Ignite 2025: Key Highlights of the Event (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/article/tm-forum-dtw-2025-key-highlights)",
-                "TCS is the Silver Partner at TM Forum Innovate Asia 2024 (/content/tcs/global/en/who-we-are/events/tcs-silver-partner-tm-forum-innovate-asia-2024)"
-            ]
-        },
-        {
-            "heading": "In Focus: Analyst recognitions",
-            "content": [
-                "TCS Recognized as a Leader in Custom Application Development Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-leader-custom-application-development-services-everest-group)",
-                "TCS Named a Leader in Application Management Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-named-leader-application-management-services-everest-group)",
-                "TCS Recognized as a Leader in Gartner Magic Quadrant for Worldwide Cloud ERP Services (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-as-leader-in-gartner-magic-quadrant-for-worldwide-cloud-erp-services)",
-                "TCS Positioned as a Leader in North America and Europe Cybersecurity Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-positioned-leader-north-america-europe-cybersecurity-services-everest-group)"
-            ]
-        },
-        {
-            "heading": "In Focus: Industry",
-            "content": [
-                "TCS AI Native Telco Offerings (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/ai-native-telco-offerings)",
-                "Customer Experience Transformation with TCS CX Transformer (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/cx-transformer-telcos)",
-                "Cognitive Network Operations: Telcos to Monitor Network Health (/content/tcs/global/en/what-we-do/services/network-solutions-and-services/solution/cognitive-network-operations-telecommunication-network)"
-            ]
-        },
-        {
-            "heading": "In Focus: Technology",
-            "content": [
-                "Shape the future with human-first AI (/content/tcs/global/en/what-we-do/services/artificial-intelligence)",
-                "Enabling Enterprise Agility & Resilience with a Robust Cloud Strategy (/content/tcs/global/en/what-we-do/services/cloud)",
-                "Reimagining 5G and network solutions for future businesses (/content/tcs/global/en/what-we-do/services/network-solutions-and-services)",
-                "Unlock Business Agility and Future-ready Operations with TCS (/content/tcs/global/en/what-we-do/services/cognitive-business-operations)",
-                "Data and Cybersecurity to Fight off Cyberattacks (/content/tcs/global/en/what-we-do/services/cybersecurity)",
-                "Accelerate Enterprise Digital Transformation for Sustainable Change (/content/tcs/global/en/what-we-do/services/enterprise-solutions)"
-            ]
-        },
-        {
-            "heading": "In Focus: Products & Platforms",
-            "content": [
-                "TCS HOBS™: Engineering experiences with personalization and innovation (/content/tcs/global/en/what-we-do/products-platforms/tcs-hobs)",
-                "TCS Twinx ™: Enterprise Digital Twin Platform for Risk-Free Business Experiments (/content/tcs/global/en/what-we-do/products-platforms/tcs-twinx)",
-                "TCS MasterCraft™: Enabling Cognitive and Intelligent Automation (/content/tcs/global/en/what-we-do/products-platforms/tcs-mastercraft)",
-                "Accelerate Enterprise Generative AI Adoption with TCS AI WisdomNext™ (/content/tcs/global/en/what-we-do/services/artificial-intelligence/solution/enterprise-generative-ai-adoption-wisdomnext)",
-                "ignio™ (https://digitate.com/)"
-            ]
-        },
-        {
-            "heading": "In Focus: Industry",
-            "content": [
-                "TCS AI Native Telco Offerings (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/ai-native-telco-offerings)",
-                "Customer Experience Transformation with TCS CX Transformer (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/cx-transformer-telcos)",
-                "Cognitive Network Operations: Telcos to Monitor Network Health (/content/tcs/global/en/what-we-do/services/network-solutions-and-services/solution/cognitive-network-operations-telecommunication-network)"
-            ]
-        },
-        {
-            "heading": "In Focus: Technology",
-            "content": [
-                "Shape the future with human-first AI (/content/tcs/global/en/what-we-do/services/artificial-intelligence)",
-                "Enabling Enterprise Agility & Resilience with a Robust Cloud Strategy (/content/tcs/global/en/what-we-do/services/cloud)",
-                "Reimagining 5G and network solutions for future businesses (/content/tcs/global/en/what-we-do/services/network-solutions-and-services)",
-                "Unlock Business Agility and Future-ready Operations with TCS (/content/tcs/global/en/what-we-do/services/cognitive-business-operations)",
-                "Data and Cybersecurity to Fight off Cyberattacks (/content/tcs/global/en/what-we-do/services/cybersecurity)",
-                "Accelerate Enterprise Digital Transformation for Sustainable Change (/content/tcs/global/en/what-we-do/services/enterprise-solutions)"
-            ]
-        },
-        {
-            "heading": "In Focus: Products & Platforms",
-            "content": [
-                "TCS HOBS™: Engineering experiences with personalization and innovation (/content/tcs/global/en/what-we-do/products-platforms/tcs-hobs)",
-                "TCS Twinx ™: Enterprise Digital Twin Platform for Risk-Free Business Experiments (/content/tcs/global/en/what-we-do/products-platforms/tcs-twinx)",
-                "TCS MasterCraft™: Enabling Cognitive and Intelligent Automation (/content/tcs/global/en/what-we-do/products-platforms/tcs-mastercraft)",
-                "Accelerate Enterprise Generative AI Adoption with TCS AI WisdomNext™ (/content/tcs/global/en/what-we-do/services/artificial-intelligence/solution/enterprise-generative-ai-adoption-wisdomnext)",
-                "ignio™ (https://digitate.com/)"
-            ]
-        },
-        {
             "heading": "In Focus",
-            "content": [
-                "Technology trends 2025: Reshaping the future of telecom (/content/tcs/global/en/insights/blogs/technology-trends-2025-reshape-future-telecom)",
-                "AI in media and entertainment: Transforming business models for growth (/content/tcs/global/en/insights/blogs/ai-transforming-media-entertainment-value-chain)",
-                "Key trends in information services to enhance customer experiences (/content/tcs/global/en/insights/blogs/information-services-key-trends-enhance-cx)",
-                "Leveraging AI implementation in communications and media (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/leveraging-ai-implementation-communication-media)",
-                "Balancing AI and Regulatory Compliance in Information Services (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/balancing-ai-regulatory-compliance-information-services)",
-                "TCS aids BT Sport’s Commercial rebranding, WBD integration (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/bt-sport-merger-rebranding)",
-                "Vodafone UK Collaborates with TCS to Enhance Business Agility, CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/vodafone-uk-collaborates-tcs-enhance-business-agility)",
-                "TCS Helps Thryv Improve Employee Productivity and CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/automated-solution-improve-employee-productivity-cx)",
-                "Equifax UK modernizes identity and fraud platform (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/uk-credit-bureau-modernizes-identity-verification-platform)",
-                "Proximus Achieves Seamless Collaboration with Smart Automation (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/proximus-create-digital-workplace-smart-automation)",
-                "TCS to Steer Cloud Migration Program for Finnish Telecom Leader DNA in a Five-Year Partnership (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-steer-cloud-migration-program-finnish-telecom-leader-dna-five-year-partnership)",
-                "TCS Partners with Vantage Towers to Revolutionize Telecom Site Management Across Europe (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-partners-with-vantage-towers-to-revolutionize-telecom-site-management-across-europe)",
-                "TCS Partners with Google Cloud to Accelerate AI-led Transformation for Telecom Customers (/content/tcs/global/en/who-we-are/newsroom/news-alert/tcs-partners-google-cloud-accelerate-ai-led-transformation-telecom-customers)",
-                "TCS Signs Five-Year Deal with Telenor Denmark to Deliver IT Infrastructure Services (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-signs-five-year-deal-with-telenor-denmark-deliver-it-infrastructure-services)",
-                "Nuuday Signs Major Cloud Transformation Deal with TCS (/content/tcs/global/en/who-we-are/newsroom/press-release/nuuday-signs-major-cloud-transformation-deal-with-tcs)",
-                "TCS Launches NVIDIA Business Unit to Accelerate AI Adoption for Customers Across Industries (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-launches-nvidia-business-unit-accelerate-ai-adoption-customers-across-industries)",
-                "TCS at IBC 2025: Explore the Future of Media and Entertainment (/content/tcs/global/en/who-we-are/events/tcs-at-ibc-2025-amsterdam)",
-                "TCS at TM Forum DTW Ignite 2025: Key Highlights of the Event (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/article/tm-forum-dtw-2025-key-highlights)",
-                "TCS is the Silver Partner at TM Forum Innovate Asia 2024 (/content/tcs/global/en/who-we-are/events/tcs-silver-partner-tm-forum-innovate-asia-2024)",
-                "TCS Recognized as a Leader in Custom Application Development Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-leader-custom-application-development-services-everest-group)",
-                "TCS Named a Leader in Application Management Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-named-leader-application-management-services-everest-group)",
-                "TCS Recognized as a Leader in Gartner Magic Quadrant for Worldwide Cloud ERP Services (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-as-leader-in-gartner-magic-quadrant-for-worldwide-cloud-erp-services)",
-                "TCS Positioned as a Leader in North America and Europe Cybersecurity Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-positioned-leader-north-america-europe-cybersecurity-services-everest-group)"
-            ]
-        },
-        {
-            "heading": "Get to know us better",
-            "content": [
-                "Technology trends 2025: Reshaping the future of telecom (/content/tcs/global/en/insights/blogs/technology-trends-2025-reshape-future-telecom)",
-                "AI in media and entertainment: Transforming business models for growth (/content/tcs/global/en/insights/blogs/ai-transforming-media-entertainment-value-chain)",
-                "Key trends in information services to enhance customer experiences (/content/tcs/global/en/insights/blogs/information-services-key-trends-enhance-cx)",
-                "Leveraging AI implementation in communications and media (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/leveraging-ai-implementation-communication-media)",
-                "Balancing AI and Regulatory Compliance in Information Services (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/white-paper/balancing-ai-regulatory-compliance-information-services)"
-            ]
-        },
-        {
-            "heading": "Get to know us better",
-            "content": [
-                "TCS aids BT Sport’s Commercial rebranding, WBD integration (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/bt-sport-merger-rebranding)",
-                "Vodafone UK Collaborates with TCS to Enhance Business Agility, CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/video/vodafone-uk-collaborates-tcs-enhance-business-agility)",
-                "TCS Helps Thryv Improve Employee Productivity and CX (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/automated-solution-improve-employee-productivity-cx)",
-                "Equifax UK modernizes identity and fraud platform (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/uk-credit-bureau-modernizes-identity-verification-platform)",
-                "Proximus Achieves Seamless Collaboration with Smart Automation (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/case-study/proximus-create-digital-workplace-smart-automation)"
-            ]
-        },
-        {
-            "heading": "Get to know us better",
-            "content": [
-                "TCS to Steer Cloud Migration Program for Finnish Telecom Leader DNA in a Five-Year Partnership (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-steer-cloud-migration-program-finnish-telecom-leader-dna-five-year-partnership)",
-                "TCS Partners with Vantage Towers to Revolutionize Telecom Site Management Across Europe (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-partners-with-vantage-towers-to-revolutionize-telecom-site-management-across-europe)",
-                "TCS Partners with Google Cloud to Accelerate AI-led Transformation for Telecom Customers (/content/tcs/global/en/who-we-are/newsroom/news-alert/tcs-partners-google-cloud-accelerate-ai-led-transformation-telecom-customers)",
-                "TCS Signs Five-Year Deal with Telenor Denmark to Deliver IT Infrastructure Services (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-signs-five-year-deal-with-telenor-denmark-deliver-it-infrastructure-services)",
-                "Nuuday Signs Major Cloud Transformation Deal with TCS (/content/tcs/global/en/who-we-are/newsroom/press-release/nuuday-signs-major-cloud-transformation-deal-with-tcs)",
-                "TCS Launches NVIDIA Business Unit to Accelerate AI Adoption for Customers Across Industries (/content/tcs/global/en/who-we-are/newsroom/press-release/tcs-launches-nvidia-business-unit-accelerate-ai-adoption-customers-across-industries)"
-            ]
-        },
-        {
-            "heading": "Get to know us better",
-            "content": [
-                "TCS at IBC 2025: Explore the Future of Media and Entertainment (/content/tcs/global/en/who-we-are/events/tcs-at-ibc-2025-amsterdam)",
-                "TCS at TM Forum DTW Ignite 2025: Key Highlights of the Event (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/article/tm-forum-dtw-2025-key-highlights)",
-                "TCS is the Silver Partner at TM Forum Innovate Asia 2024 (/content/tcs/global/en/who-we-are/events/tcs-silver-partner-tm-forum-innovate-asia-2024)"
-            ]
-        },
-        {
-            "heading": "Get to know us better",
-            "content": [
-                "TCS Recognized as a Leader in Custom Application Development Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-leader-custom-application-development-services-everest-group)",
-                "TCS Named a Leader in Application Management Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-named-leader-application-management-services-everest-group)",
-                "TCS Recognized as a Leader in Gartner Magic Quadrant for Worldwide Cloud ERP Services (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-recognized-as-leader-in-gartner-magic-quadrant-for-worldwide-cloud-erp-services)",
-                "TCS Positioned as a Leader in North America and Europe Cybersecurity Services by Everest Group (/content/tcs/global/en/who-we-are/newsroom/analyst-reports/tcs-positioned-leader-north-america-europe-cybersecurity-services-everest-group)"
-            ]
+            "content": []
         },
         {
             "heading": "Solutions",
-            "content": [
-                "TCS AI Native Telco Offerings (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/ai-native-telco-offerings)",
-                "Customer Experience Transformation with TCS CX Transformer (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/cx-transformer-telcos)",
-                "Cognitive Network Operations: Telcos to Monitor Network Health (/content/tcs/global/en/what-we-do/services/network-solutions-and-services/solution/cognitive-network-operations-telecommunication-network)",
-                "Shape the future with human-first AI (/content/tcs/global/en/what-we-do/services/artificial-intelligence)",
-                "Enabling Enterprise Agility & Resilience with a Robust Cloud Strategy (/content/tcs/global/en/what-we-do/services/cloud)",
-                "Reimagining 5G and network solutions for future businesses (/content/tcs/global/en/what-we-do/services/network-solutions-and-services)",
-                "Unlock Business Agility and Future-ready Operations with TCS (/content/tcs/global/en/what-we-do/services/cognitive-business-operations)",
-                "Data and Cybersecurity to Fight off Cyberattacks (/content/tcs/global/en/what-we-do/services/cybersecurity)",
-                "Accelerate Enterprise Digital Transformation for Sustainable Change (/content/tcs/global/en/what-we-do/services/enterprise-solutions)",
-                "TCS HOBS™: Engineering experiences with personalization and innovation (/content/tcs/global/en/what-we-do/products-platforms/tcs-hobs)",
-                "TCS Twinx ™: Enterprise Digital Twin Platform for Risk-Free Business Experiments (/content/tcs/global/en/what-we-do/products-platforms/tcs-twinx)",
-                "TCS MasterCraft™: Enabling Cognitive and Intelligent Automation (/content/tcs/global/en/what-we-do/products-platforms/tcs-mastercraft)",
-                "Accelerate Enterprise Generative AI Adoption with TCS AI WisdomNext™ (/content/tcs/global/en/what-we-do/services/artificial-intelligence/solution/enterprise-generative-ai-adoption-wisdomnext)",
-                "ignio™ (https://digitate.com/)"
-            ]
+            "content": []
         },
         {
-            "heading": "Get to know us better",
-            "content": [
-                "TCS AI Native Telco Offerings (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/ai-native-telco-offerings)",
-                "Customer Experience Transformation with TCS CX Transformer (/content/tcs/global/en/what-we-do/industries/communications-media-information-services/solution/cx-transformer-telcos)",
-                "Cognitive Network Operations: Telcos to Monitor Network Health (/content/tcs/global/en/what-we-do/services/network-solutions-and-services/solution/cognitive-network-operations-telecommunication-network)"
-            ]
+            "heading": "Thought leadership",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+            "content": [],
+            "page": 11,
+            "childPage": {
+                "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                "pageNumber": 11,
+                "breadcrumbs": [
+                    {
+                        "text": "CMI",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                        "page": 11
+                    },
+                    {
+                        "text": "Communications",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                        "page": 12
+                    },
+                    {
+                        "text": "Media",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                        "page": 12
+                    },
+                    {
+                        "text": "Information Services",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                        "page": 12
+                    }
+                ],
+                "sections": [
+                    {
+                        "heading": "In Focus",
+                        "content": []
+                    },
+                    {
+                        "heading": "Solutions",
+                        "content": []
+                    },
+                    {
+                        "heading": "Thought leadership",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                        "content": []
+                    },
+                    {
+                        "heading": "Case studies",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                        "content": [],
+                        "page": 12,
+                        "childPage": {
+                            "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                            "pageNumber": 12,
+                            "breadcrumbs": [
+                                {
+                                    "text": "CMI",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                    "page": 12
+                                },
+                                {
+                                    "text": "Communications",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                    "page": 13
+                                },
+                                {
+                                    "text": "Media",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                    "page": 13
+                                },
+                                {
+                                    "text": "Information Services",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                    "page": 13
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "heading": "In Focus",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Solutions",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Thought leadership",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Case studies",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Press releases",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                    "content": [],
+                                    "page": 13,
+                                    "childPage": {
+                                        "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                        "pageNumber": 13,
+                                        "breadcrumbs": [
+                                            {
+                                                "text": "CMI",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                "page": 13
+                                            },
+                                            {
+                                                "text": "Communications",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                "page": 14
+                                            },
+                                            {
+                                                "text": "Media",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                "page": 14
+                                            },
+                                            {
+                                                "text": "Information Services",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                "page": 14
+                                            }
+                                        ],
+                                        "sections": [
+                                            {
+                                                "heading": "In Focus",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Solutions",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Thought leadership",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Case studies",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Press releases",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Events",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                "content": [],
+                                                "page": 14,
+                                                "childPage": {
+                                                    "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                    "pageNumber": 14,
+                                                    "breadcrumbs": [
+                                                        {
+                                                            "text": "CMI",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                            "page": 14
+                                                        },
+                                                        {
+                                                            "text": "Communications",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                            "page": 15
+                                                        },
+                                                        {
+                                                            "text": "Media",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                            "page": 15
+                                                        },
+                                                        {
+                                                            "text": "Information Services",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                            "page": 15
+                                                        }
+                                                    ],
+                                                    "sections": [
+                                                        {
+                                                            "heading": "In Focus",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Solutions",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Thought leadership",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Case studies",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Press releases",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Events",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Analyst recognitions",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                            "content": [],
+                                                            "page": 15,
+                                                            "childPage": {
+                                                                "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                                "pageNumber": 15,
+                                                                "breadcrumbs": [
+                                                                    {
+                                                                        "text": "CMI",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                                        "page": 15
+                                                                    },
+                                                                    {
+                                                                        "text": "Communications",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                                        "page": 16
+                                                                    },
+                                                                    {
+                                                                        "text": "Media",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                                        "page": 16
+                                                                    },
+                                                                    {
+                                                                        "text": "Information Services",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                                        "page": 16
+                                                                    }
+                                                                ],
+                                                                "sections": [
+                                                                    {
+                                                                        "heading": "In Focus",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Solutions",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Thought leadership",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Case studies",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Press releases",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Events",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Analyst recognitions",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Industry",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                                        "content": [],
+                                                                        "page": 16,
+                                                                        "childPage": {
+                                                                            "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                                            "pageNumber": 16,
+                                                                            "breadcrumbs": [
+                                                                                {
+                                                                                    "text": "CMI",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                                                    "page": 16
+                                                                                },
+                                                                                {
+                                                                                    "text": "Communications",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                                                    "page": 17
+                                                                                },
+                                                                                {
+                                                                                    "text": "Media",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                                                    "page": 17
+                                                                                },
+                                                                                {
+                                                                                    "text": "Information Services",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                                                    "page": 17
+                                                                                }
+                                                                            ],
+                                                                            "sections": [
+                                                                                {
+                                                                                    "heading": "In Focus",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Solutions",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Thought leadership",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Case studies",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Press releases",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Events",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Analyst recognitions",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Industry",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                                                    "content": []
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Technology",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                                                    "content": [],
+                                                                                    "page": 17,
+                                                                                    "childPage": {
+                                                                                        "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                                                        "pageNumber": 17,
+                                                                                        "breadcrumbs": [
+                                                                                            {
+                                                                                                "text": "CMI",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                                                                "page": 17
+                                                                                            },
+                                                                                            {
+                                                                                                "text": "Communications",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                                                                "page": 18
+                                                                                            },
+                                                                                            {
+                                                                                                "text": "Media",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                                                                "page": 18
+                                                                                            },
+                                                                                            {
+                                                                                                "text": "Information Services",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                                                                "page": 18
+                                                                                            }
+                                                                                        ],
+                                                                                        "sections": [
+                                                                                            {
+                                                                                                "heading": "In Focus",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Solutions",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Thought leadership",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Case studies",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Press releases",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Events",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Analyst recognitions",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Industry",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Technology",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                                                                "content": []
+                                                                                            },
+                                                                                            {
+                                                                                                "heading": "Products & Platforms",
+                                                                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                                                                "content": [],
+                                                                                                "page": 18,
+                                                                                                "childPage": {
+                                                                                                    "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                                                                    "pageNumber": 18,
+                                                                                                    "breadcrumbs": [
+                                                                                                        {
+                                                                                                            "text": "CMI",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                                                                            "page": 18
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "text": "Communications",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                                                                            "page": 19
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "text": "Media",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                                                                            "page": 19
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "text": "Information Services",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                                                                            "page": 19
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "sections": [
+                                                                                                        {
+                                                                                                            "heading": "In Focus",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Solutions",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Thought leadership",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0-758536044",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Case studies",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Press releases",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Events",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Analyst recognitions",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Industry",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Technology",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                                                                            "content": []
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "heading": "Products & Platforms",
+                                                                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                                                                            "content": []
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    "heading": "Products & Platforms",
+                                                                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                                                    "content": []
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "heading": "Technology",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                                        "content": []
+                                                                    },
+                                                                    {
+                                                                        "heading": "Products & Platforms",
+                                                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                                        "content": []
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        {
+                                                            "heading": "Industry",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Technology",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                            "content": []
+                                                        },
+                                                        {
+                                                            "heading": "Products & Platforms",
+                                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                            "content": []
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            {
+                                                "heading": "Analyst recognitions",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Industry",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Technology",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Products & Platforms",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                                "content": []
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "heading": "Events",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Analyst recognitions",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Industry",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Technology",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Products & Platforms",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                                    "content": []
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "heading": "Press releases",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+                        "content": []
+                    },
+                    {
+                        "heading": "Events",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+                        "content": []
+                    },
+                    {
+                        "heading": "Analyst recognitions",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+                        "content": []
+                    },
+                    {
+                        "heading": "Industry",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+                        "content": []
+                    },
+                    {
+                        "heading": "Technology",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+                        "content": []
+                    },
+                    {
+                        "heading": "Products & Platforms",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+                        "content": []
+                    }
+                ]
+            }
         },
         {
-            "heading": "Get to know us better",
-            "content": [
-                "Shape the future with human-first AI (/content/tcs/global/en/what-we-do/services/artificial-intelligence)",
-                "Enabling Enterprise Agility & Resilience with a Robust Cloud Strategy (/content/tcs/global/en/what-we-do/services/cloud)",
-                "Reimagining 5G and network solutions for future businesses (/content/tcs/global/en/what-we-do/services/network-solutions-and-services)",
-                "Unlock Business Agility and Future-ready Operations with TCS (/content/tcs/global/en/what-we-do/services/cognitive-business-operations)",
-                "Data and Cybersecurity to Fight off Cyberattacks (/content/tcs/global/en/what-we-do/services/cybersecurity)",
-                "Accelerate Enterprise Digital Transformation for Sustainable Change (/content/tcs/global/en/what-we-do/services/enterprise-solutions)"
-            ]
+            "heading": "Case studies",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1-758536044",
+            "content": []
         },
         {
-            "heading": "Get to know us better",
-            "content": [
-                "TCS HOBS™: Engineering experiences with personalization and innovation (/content/tcs/global/en/what-we-do/products-platforms/tcs-hobs)",
-                "TCS Twinx ™: Enterprise Digital Twin Platform for Risk-Free Business Experiments (/content/tcs/global/en/what-we-do/products-platforms/tcs-twinx)",
-                "TCS MasterCraft™: Enabling Cognitive and Intelligent Automation (/content/tcs/global/en/what-we-do/products-platforms/tcs-mastercraft)",
-                "Accelerate Enterprise Generative AI Adoption with TCS AI WisdomNext™ (/content/tcs/global/en/what-we-do/services/artificial-intelligence/solution/enterprise-generative-ai-adoption-wisdomnext)",
-                "ignio™ (https://digitate.com/)"
-            ]
+            "heading": "Press releases",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2-758536044",
+            "content": []
+        },
+        {
+            "heading": "Events",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item3-758536044",
+            "content": []
+        },
+        {
+            "heading": "Analyst recognitions",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item4-758536044",
+            "content": []
+        },
+        {
+            "heading": "Industry",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item0--1746694776",
+            "content": []
+        },
+        {
+            "heading": "Technology",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item1--1746694776",
+            "content": []
+        },
+        {
+            "heading": "Products & Platforms",
+            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services#item2--1746694776",
+            "content": []
         }
-    ]
+    ],
+    "breadcrumb_page_2": {
+        "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+        "pageNumber": 2,
+        "breadcrumbs": [
+            {
+                "text": "CMI",
+                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                "page": 2
+            },
+            {
+                "text": "Communications",
+                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                "page": 3
+            },
+            {
+                "text": "Media",
+                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                "page": 3
+            },
+            {
+                "text": "Information Services",
+                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                "page": 3
+            }
+        ],
+        "sections": [
+            {
+                "heading": "In Focus",
+                "content": []
+            },
+            {
+                "heading": "Thought leadership",
+                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item0--1225777298",
+                "content": [],
+                "page": 9,
+                "childPage": {
+                    "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item0--1225777298",
+                    "pageNumber": 9,
+                    "breadcrumbs": [
+                        {
+                            "text": "CMI",
+                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                            "page": 9
+                        },
+                        {
+                            "text": "Communications",
+                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                            "page": 10
+                        },
+                        {
+                            "text": "Media",
+                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                            "page": 10
+                        },
+                        {
+                            "text": "Information Services",
+                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                            "page": 10
+                        }
+                    ],
+                    "sections": [
+                        {
+                            "heading": "In Focus",
+                            "content": []
+                        },
+                        {
+                            "heading": "Thought leadership",
+                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item0--1225777298",
+                            "content": []
+                        },
+                        {
+                            "heading": "Case studies",
+                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item1--1225777298",
+                            "content": [],
+                            "page": 10,
+                            "childPage": {
+                                "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item1--1225777298",
+                                "pageNumber": 10,
+                                "breadcrumbs": [
+                                    {
+                                        "text": "CMI",
+                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                        "page": 10
+                                    },
+                                    {
+                                        "text": "Communications",
+                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                        "page": 11
+                                    },
+                                    {
+                                        "text": "Media",
+                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                        "page": 11
+                                    },
+                                    {
+                                        "text": "Information Services",
+                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                        "page": 11
+                                    }
+                                ],
+                                "sections": [
+                                    {
+                                        "heading": "In Focus",
+                                        "content": []
+                                    },
+                                    {
+                                        "heading": "Thought leadership",
+                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item0--1225777298",
+                                        "content": []
+                                    },
+                                    {
+                                        "heading": "Case studies",
+                                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item1--1225777298",
+                                        "content": []
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "heading": "Case studies",
+                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications#item1--1225777298",
+                "content": []
+            }
+        ],
+        "breadcrumb_page_3": {
+            "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+            "pageNumber": 3,
+            "breadcrumbs": [
+                {
+                    "text": "CMI",
+                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                    "page": 3
+                },
+                {
+                    "text": "Communications",
+                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                    "page": 4
+                },
+                {
+                    "text": "Media",
+                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                    "page": 4
+                },
+                {
+                    "text": "Information Services",
+                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                    "page": 4
+                }
+            ],
+            "sections": [
+                {
+                    "heading": "In Focus",
+                    "content": []
+                },
+                {
+                    "heading": "Thought leadership",
+                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item0-1311087891",
+                    "content": [],
+                    "page": 7,
+                    "childPage": {
+                        "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item0-1311087891",
+                        "pageNumber": 7,
+                        "breadcrumbs": [
+                            {
+                                "text": "CMI",
+                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                "page": 7
+                            },
+                            {
+                                "text": "Communications",
+                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                "page": 8
+                            },
+                            {
+                                "text": "Media",
+                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                "page": 8
+                            },
+                            {
+                                "text": "Information Services",
+                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                "page": 8
+                            }
+                        ],
+                        "sections": [
+                            {
+                                "heading": "In Focus",
+                                "content": []
+                            },
+                            {
+                                "heading": "Thought leadership",
+                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item0-1311087891",
+                                "content": []
+                            },
+                            {
+                                "heading": "Case studies",
+                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item1-1311087891",
+                                "content": [],
+                                "page": 8,
+                                "childPage": {
+                                    "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item1-1311087891",
+                                    "pageNumber": 8,
+                                    "breadcrumbs": [
+                                        {
+                                            "text": "CMI",
+                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                            "page": 8
+                                        },
+                                        {
+                                            "text": "Communications",
+                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                            "page": 9
+                                        },
+                                        {
+                                            "text": "Media",
+                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                            "page": 9
+                                        },
+                                        {
+                                            "text": "Information Services",
+                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                            "page": 9
+                                        }
+                                    ],
+                                    "sections": [
+                                        {
+                                            "heading": "In Focus",
+                                            "content": []
+                                        },
+                                        {
+                                            "heading": "Thought leadership",
+                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item0-1311087891",
+                                            "content": []
+                                        },
+                                        {
+                                            "heading": "Case studies",
+                                            "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item1-1311087891",
+                                            "content": []
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "heading": "Case studies",
+                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media#item1-1311087891",
+                    "content": []
+                }
+            ],
+            "breadcrumb_page_4": {
+                "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                "pageNumber": 4,
+                "breadcrumbs": [
+                    {
+                        "text": "CMI",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                        "page": 4
+                    },
+                    {
+                        "text": "Communications",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                        "page": 5
+                    },
+                    {
+                        "text": "Media",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                        "page": 5
+                    },
+                    {
+                        "text": "Information Services",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                        "page": 5
+                    }
+                ],
+                "sections": [
+                    {
+                        "heading": "In Focus",
+                        "content": []
+                    },
+                    {
+                        "heading": "Thought leadership",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item0-1924899884",
+                        "content": [],
+                        "page": 5,
+                        "childPage": {
+                            "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item0-1924899884",
+                            "pageNumber": 5,
+                            "breadcrumbs": [
+                                {
+                                    "text": "CMI",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                    "page": 5
+                                },
+                                {
+                                    "text": "Communications",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                    "page": 6
+                                },
+                                {
+                                    "text": "Media",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                    "page": 6
+                                },
+                                {
+                                    "text": "Information Services",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                    "page": 6
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "heading": "In Focus",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Thought leadership",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item0-1924899884",
+                                    "content": []
+                                },
+                                {
+                                    "heading": "Case studies",
+                                    "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item1-1924899884",
+                                    "content": [],
+                                    "page": 6,
+                                    "childPage": {
+                                        "url": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item1-1924899884",
+                                        "pageNumber": 6,
+                                        "breadcrumbs": [
+                                            {
+                                                "text": "CMI",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services",
+                                                "page": 6
+                                            },
+                                            {
+                                                "text": "Communications",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/communications",
+                                                "page": 7
+                                            },
+                                            {
+                                                "text": "Media",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/media",
+                                                "page": 7
+                                            },
+                                            {
+                                                "text": "Information Services",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services",
+                                                "page": 7
+                                            }
+                                        ],
+                                        "sections": [
+                                            {
+                                                "heading": "In Focus",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Thought leadership",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item0-1924899884",
+                                                "content": []
+                                            },
+                                            {
+                                                "heading": "Case studies",
+                                                "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item1-1924899884",
+                                                "content": []
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "heading": "Case studies",
+                        "href": "https://www.tcs.com/what-we-do/industries/communications-media-information-services/information-services#item1-1924899884",
+                        "content": []
+                    }
+                ]
+            }
+        }
+    }
 }

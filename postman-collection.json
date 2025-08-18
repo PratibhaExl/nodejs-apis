@@ -1,0 +1,209 @@
+{
+  "info": {
+    "name": "Enhanced Web Scraping API",
+    "description": "Collection for testing the Node.js web scraping API with header/footer exclusion and duplicate removal",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "V2 Enhanced API",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:6677/api/v2/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v2", "health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Enhanced Scraping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"https://example.com\",\n  \"includeLinks\": true,\n  \"includeImages\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v2/scrape-enhanced",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v2", "scrape-enhanced"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Lightweight Scraping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"https://example.com\",\n  \"includeLinks\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v2/scrape-lightweight",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v2", "scrape-lightweight"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Batch Scraping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"urls\": [\n    \"https://example.com\",\n    \"https://httpbin.org/html\"\n  ],\n  \"includeLinks\": true,\n  \"includeImages\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v2/scrape-batch",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v2", "scrape-batch"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "V1 Legacy API",
+      "item": [
+        {
+          "name": "Basic URL Scraping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v1/scrape-urls",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v1", "scrape-urls"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Domain Crawling",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"domain\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v1/scrape-domain",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v1", "scrape-domain"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Relevant Content",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v1/scrape-relevant",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v1", "scrape-relevant"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Full Page Content",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUrl\": \"https://example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:6677/api/v1/scrape-full",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "6677",
+              "path": ["api", "v1", "scrape-full"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:6677",
+      "type": "string"
+    }
+  ]
+}

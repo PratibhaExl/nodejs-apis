@@ -684,14 +684,15 @@ const scrapeRelevantContent = async (req, res) => {
     await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
 
     const data = await page.evaluate(() => {
-
+          
       // Meta description
       let metaDescription = null;
       const metaTag = document.querySelector('meta[name="description"]');
       if (metaTag) metaDescription = metaTag.getAttribute('content') || '';
 
+      const sections = [];
 
-
+      
       //--------------------------------------------------------------------------------------------------
       const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
       const isVis = el => {
@@ -703,8 +704,40 @@ const scrapeRelevantContent = async (req, res) => {
       //--------------------------------------------------------------------------------------------------
 
 
+
+ //---------- breadcrumb trail ---------------------------------------------------------------------------------------
+      // Extract breadcrumbs from Secondary Navigation
+// Breadcrumb extraction with deduplication
+const seen = new Set();
+const breadcrumbEls = document.querySelectorAll(
+  'nav[aria-label="Secondary Navigation"] a'
+);
+
+const breadcrumbs = [];
+breadcrumbEls.forEach((link, index) => {
+  const text = clean(link.textContent);
+  const href = link.href || '';
+  const key = text.toLowerCase() + '|' + href.toLowerCase();
+
+  if (text && href && !seen.has(key)) {
+    seen.add(key);
+    breadcrumbs.push({
+      text,
+      href,
+      page: index + 1 // hierarchy level starts at 1
+    });
+  }
+});
+
+ //---------- END breadcrumb trail ---------------------------------------------------------------------------------------
+
+
+
+
+
+
+
       //------------------------ NORMAL TEXT--------------------------------------------------------------------------
-      const sections = [];
       const shouldSkip = txt => {
         const lc = txt.toLowerCase();
         return !txt || txt.length < 20 ||
@@ -817,7 +850,8 @@ const scrapeRelevantContent = async (req, res) => {
       return {
         url: window.location.href,
         title: clean(document.title),
-        //description: metaDescription,
+        metaDescription: metaDescription,
+        breadcrumbs,
         page: sections,
       };
     });
@@ -836,12 +870,432 @@ const scrapeRelevantContent = async (req, res) => {
 
 
 
+//************************* */
+
+const scrapeMainPage = async (req, res) => {
+  const { targetUrl } = req.body;
+  try {
+    const data = await scrapeCombineResult(targetUrl);
+    res.json(data);
+  } catch (err) {
+    console.error("Scraping failed:", err);
+    res.status(500).json({ message: "Error scraping content" });
+  }
+};
+
+async function scrapeRelevantContent(targetUrl) {
+  const browser = await puppeteer.launch({ headless: 'new' });
+  const page = await browser.newPage();
+  await page.goto(targetUrl, { waitUntil: "networkidle2", timeout: 60000 });
+
+  const data = await page.evaluate(() => {
+    const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+    const isVis = el => {
+      if (!el) return false;
+      const s = window.getComputedStyle(el);
+      return s.display !== 'none' && s.visibility !== 'hidden' &&
+        el.offsetHeight > 0 && el.offsetWidth > 0;
+    };
+
+
+    function scrapePageContent(url) {
+      // if same-domain and you can fetch synchronously/async, use fetch + DOMParser
+      // Here just returning titles as example from current page
+      return Array.from(document.querySelectorAll('h2, h3')).map(el => clean(el.textContent));
+    }
+
+    // --- scrape breadcrumbs ---
+    async function scrapeBreadcrumbsAndContent() {
+      const breadcrumbs = [];
+      const seen = new Set();
+
+      document.querySelectorAll('nav[aria-label="Secondary Navigation"] a').forEach((a, index) => {
+        const text = clean(a.textContent);
+        const href = a.getAttribute('href');
+        if (text && href) {
+          const key = `${text}|${href}`;
+          if (!seen.has(key)) {
+            seen.add(key);
+            breadcrumbs.push({
+              text,
+              href,
+              page: index + 1,
+              content: scrapePageContent(href) // scrape content for that breadcrumb page
+            });
+          }
+        }
+      });
+// Call main scraper for each breadcrumb href
+  for (let bc of breadcrumbs) {
+    const fullUrl = new URL(bc.href, window.location.origin).href;
+    bc.content = await scrapeRelevantContent(fullUrl); // mainScraper is your existing page scraping method
+  }
+      return breadcrumbs;
+    }
+
+    // Meta description
+    let metaDescription = null;
+    const metaTag = document.querySelector('meta[name="description"]');
+    if (metaTag) metaDescription = metaTag.getAttribute('content') || '';
+
+    const sections = [];
+    const sectionMap = new Map();
+
+    // ---------------- Breadcrumbs ----------------
+    const breadcrumbs = scrapeBreadcrumbsAndContent();
+
+
+    // ---------------- Normal text sections ----------------
+    const shouldSkip = txt => {
+      const lc = txt.toLowerCase();
+      return !txt || txt.length < 20 ||
+        lc.includes('cookie') || lc.includes('embed') ||
+        txt.trim().toLowerCase() === 'get to know us better';
+    };
+    const existsInSections = (sections, text) => {
+      const cleanText = text.toLowerCase();
+      return sections.some(sec =>
+        sec.heading?.toLowerCase() === cleanText ||
+        (sec.content && sec.content.some(c =>
+          typeof c === 'string'
+            ? c.toLowerCase() === cleanText
+            : (c.text && c.text.toLowerCase() === cleanText)
+        ))
+      );
+    };
+
+    document.querySelectorAll('h1,h2,p').forEach(h => {
+      if (!isVis(h)) return;
+      const text = clean(h.textContent);
+      if (shouldSkip(text)) return;
+      const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
+      let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
+      const content = paragraph ? [clean(paragraph.textContent)] : [];
+      if (text && !existsInSections(sections, text) && (content.length > 0 || text.length > 0)) {
+        sections.push({ heading: text, content });
+      }
+    });
+
+    // ---------------- Cards + Tabs ----------------
+    const tabShouldExclude = text => {
+      if (!text) return true;
+      const lower = text.toLowerCase();
+      return (
+        text.length < 2 ||
+        lower.includes('cookie') ||
+        lower.includes('privacy') ||
+        lower.includes('login') ||
+        lower.includes('©')
+      );
+    };
+    const addTabCard = (heading, tabname, tabcards) => {
+      if (!heading || !tabname || !tabcards.length) return;
+      if (!sectionMap.has(heading)) {
+        sectionMap.set(heading, { heading, tabs: [] });
+      }
+      const section = sectionMap.get(heading);
+      let tabObj = section.tabs.find(t => t.tabname === tabname);
+      if (!tabObj) {
+        tabObj = { tabname, tabcards: [] };
+        section.tabs.push(tabObj);
+      }
+      tabcards.forEach(c => {
+        if (!tabObj.tabcards.some(tc => tc.text === c.text && tc.href === c.href)) {
+          tabObj.tabcards.push(c);
+        }
+      });
+    };
+
+    document.querySelectorAll('.horizontaltab-main-section').forEach(sectionEl => {
+      const mainHeading = clean(sectionEl.querySelector('.horizontaltab-section-title')?.textContent);
+      if (!mainHeading || tabShouldExclude(mainHeading)) return;
+
+      const tabs = Array.from(sectionEl.querySelectorAll('.horizontaltab-nav-link'));
+      tabs.forEach(tab => {
+        const tabname = clean(tab.textContent);
+        const panelId = tab.getAttribute('href');
+        if (!panelId) return;
+        const panel = sectionEl.querySelector(panelId);
+        if (!panel) return;
+        const tabcards = Array.from(panel.querySelectorAll('a'))
+          .map(card => {
+            const text = clean(card.querySelector('h3, h4, p')?.textContent);
+            const href = card.getAttribute('href') || '';
+            return text && !tabShouldExclude(text) ? { text, href } : null;
+          })
+          .filter(Boolean);
+        addTabCard(mainHeading, tabname, tabcards);
+      });
+    });
+
+    const cardSections = Array.from(sectionMap.values());
+    if (cardSections.length) sections.push({ cards: cardSections });
+
+    return {
+      url: window.location.href,
+      title: clean(document.title),
+      metaDescription,
+      breadcrumbs,
+      sections,
+
+    };
+  });
+
+  await browser.close();
+  return data;
+}
+
+
+async function scrapeCombineResult(targetUrl) {
+  return await scrapeRelevantContent(targetUrl);
+}
+
+
+//********************************** */
 
 
 
+//--16-------------
+const scrapeRelevantContent = async (req, res) => {
+  const { targetUrl, maxDepth = 4 } = req.body;
+  try {
+    const data = await scrapeCombineResult(targetUrl, maxDepth);
+    res.json(data);
+  } catch (err) {
+    console.error("Scraping failed:", err);
+    res.status(500).json({ message: "Error scraping content" });
+  }
+};
 
+async function startScraping(targetUrl, maxDepth, currentDepth = 0, visited = new Set()) {
+  if (currentDepth > maxDepth) return null;
+  if (visited.has(targetUrl)) return null;
+  visited.add(targetUrl);
 
+  const browser = await puppeteer.launch({ headless: "new" });
+  const page = await browser.newPage();
 
+  try {
+    await page.goto(targetUrl, { waitUntil: "networkidle2", timeout: 60000 });
+
+    const data = await page.evaluate(
+      async ({ targetUrl, currentDepth, maxDepth, origin }) => {
+        const clean = (txt) =>
+          (txt || "").replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+
+        const isVis = (el) => {
+          if (!el) return false;
+          const s = window.getComputedStyle(el);
+          return (
+            s.display !== "none" &&
+            s.visibility !== "hidden" &&
+            el.offsetHeight > 0 &&
+            el.offsetWidth > 0
+          );
+        };
+
+        // ------------ scrape content ------------
+        function scrapePageContent() {
+          return Array.from(document.querySelectorAll("h2, h3")).map((el) =>
+            clean(el.textContent)
+          );
+        }
+
+        // ------------ breadcrumbs ------------
+        const breadcrumbs = [];
+        const seen = new Set();
+
+        document
+          .querySelectorAll('nav[aria-label="Secondary Navigation"] a')
+          .forEach((a, index) => {
+            const text = clean(a.textContent);
+            const href = a.getAttribute("href");
+            if (text && href) {
+              const absHref = new URL(href, window.location.origin).href;
+              const key = `${text}|${absHref}`;
+              if (
+                !seen.has(key) &&
+                absHref !== targetUrl // skip same as target
+              ) {
+                seen.add(key);
+                breadcrumbs.push({
+                  text,
+                  href: absHref,
+                  page: index + 1,
+                  depth: currentDepth + 1,
+                  pagedata: [], // will be filled outside
+                });
+              }
+            }
+          });
+
+        // ------------ meta ------------
+        let metaDescription = null;
+        const metaTag = document.querySelector('meta[name="description"]');
+        if (metaTag) metaDescription = metaTag.getAttribute("content") || "";
+
+        const sections = [];
+        const sectionMap = new Map();
+
+        // ------------ main content ------------
+        const shouldSkip = (txt) => {
+          const lc = txt.toLowerCase();
+          return (
+            !txt ||
+            txt.length < 20 ||
+            lc.includes("cookie") ||
+            lc.includes("embed") ||
+            txt.trim().toLowerCase() === "get to know us better"
+          );
+        };
+
+        const existsInSections = (sections, text) => {
+          const cleanText = text.toLowerCase();
+          return sections.some(
+            (sec) =>
+              sec.heading?.toLowerCase() === cleanText ||
+              (sec.content &&
+                sec.content.some((c) =>
+                  typeof c === "string"
+                    ? c.toLowerCase() === cleanText
+                    : c.text && c.text.toLowerCase() === cleanText
+                ))
+          );
+        };
+
+        document.querySelectorAll("h1,h2,p").forEach((h) => {
+          if (!isVis(h)) return;
+          const text = clean(h.textContent);
+          if (shouldSkip(text)) return;
+          const next = Array.from(
+            h.nextElementSibling ? [h.nextElementSibling] : []
+          );
+          let paragraph = next.find(
+            (el) => ["P", "DIV", "SPAN"].includes(el.tagName) && isVis(el)
+          );
+          const content = paragraph ? [clean(paragraph.textContent)] : [];
+          if (
+            text &&
+            !existsInSections(sections, text) &&
+            (content.length > 0 || text.length > 0)
+          ) {
+            sections.push({ heading: text, content });
+          }
+        });
+
+        // ------------ tabs/cards ------------
+        const tabShouldExclude = (text) => {
+          if (!text) return true;
+          const lower = text.toLowerCase();
+          return (
+            text.length < 2 ||
+            lower.includes("cookie") ||
+            lower.includes("privacy") ||
+            lower.includes("login") ||
+            lower.includes("©")
+          );
+        };
+
+        const addTabCard = (heading, tabname, tabcards) => {
+          if (!heading || !tabname || !tabcards.length) return;
+          if (!sectionMap.has(heading)) {
+            sectionMap.set(heading, { heading, tabs: [] });
+          }
+          const section = sectionMap.get(heading);
+          let tabObj = section.tabs.find((t) => t.tabname === tabname);
+          if (!tabObj) {
+            tabObj = { tabname, tabcards: [] };
+            section.tabs.push(tabObj);
+          }
+          tabcards.forEach((c) => {
+            if (
+              !tabObj.tabcards.some(
+                (tc) => tc.text === c.text && tc.href === c.href
+              )
+            ) {
+              tabObj.tabcards.push(c);
+            }
+          });
+        };
+
+        document
+          .querySelectorAll(".horizontaltab-main-section")
+          .forEach((sectionEl) => {
+            const mainHeading = clean(
+              sectionEl.querySelector(".horizontaltab-section-title")
+                ?.textContent
+            );
+            if (!mainHeading || tabShouldExclude(mainHeading)) return;
+
+            const tabs = Array.from(
+              sectionEl.querySelectorAll(".horizontaltab-nav-link")
+            );
+            tabs.forEach((tab) => {
+              const tabname = clean(tab.textContent);
+              const panelId = tab.getAttribute("href");
+              if (!panelId) return;
+              const panel = sectionEl.querySelector(panelId);
+              if (!panel) return;
+              const tabcards = Array.from(panel.querySelectorAll("a"))
+                .map((card) => {
+                  const text = clean(
+                    card.querySelector("h3, h4, p")?.textContent
+                  );
+                  const href = card.getAttribute("href") || "";
+                  return text && !tabShouldExclude(text)
+                    ? { text, href }
+                    : null;
+                })
+                .filter(Boolean);
+              addTabCard(mainHeading, tabname, tabcards);
+            });
+          });
+
+        const cardSections = Array.from(sectionMap.values());
+        if (cardSections.length) sections.push({ cards: cardSections });
+
+        return {
+          url: window.location.href,
+          title: clean(document.title),
+          metaDescription,
+          breadcrumbs,
+          sections,
+          depth: currentDepth,
+        };
+      },
+      { targetUrl, currentDepth, maxDepth, origin: new URL(targetUrl).origin }
+    );
+
+    // ------------ handle recursive scrape ------------
+    for (let bc of data.breadcrumbs) {
+      const urlObj = new URL(bc.href, targetUrl);
+
+      // rule 1: outside domain -> scrape only at depth 0
+      if (urlObj.origin !== new URL(targetUrl).origin && currentDepth > 0) {
+        continue;
+      }
+
+      // rule 2: within depth
+      if (currentDepth + 1 <= maxDepth) {
+        console.log(`Scraping depth ${currentDepth + 1}: ${bc.href}`);
+        bc.pagedata = await startScraping(
+          bc.href,
+          maxDepth,
+          currentDepth + 1,
+          visited
+        );
+      }
+    }
+
+    return data;
+  } finally {
+    await browser.close();
+  }
+}
+
+async function scrapeCombineResult(targetUrl, maxDepth = 4) {
+  return await startScraping(targetUrl, maxDepth, 0);
+}
 
 
 

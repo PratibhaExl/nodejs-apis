@@ -1,5 +1,8 @@
 import puppeteer from 'puppeteer';
 
+
+
+
 const scrapeUrl = async (req, res) => {
   const { targetUrl } = req.body;
 
@@ -178,669 +181,626 @@ const scrapeFullPageContent = async (req, res) => {
 };
 
 
-// active / inactive both in response with additional text
-const scrapeRelevantContent_Merge = async (req, res) => {
-  const { targetUrl } = req.body;
 
+
+
+
+
+
+
+//------------------------15 August ----------------------------------
+
+// async function scrapeBreadcrumbsAndContent(page, url, visited, counter, level = 1) {
+//   if (visited.has(url)) return null;
+//   visited.add(url);
+
+//   console.log(`Scraping Level ${level}, Page ${counter.current}: ${url}`);
+//   await page.goto(url, { waitUntil: 'networkidle2' });
+
+//   // --- SCRAPE BREADCRUMBS ---
+//   const breadcrumbs = await page.evaluate((pageNum) => {
+//     const seen = new Set();
+//     const crumbs = [];
+//     const nav = document.querySelector('nav[aria-label="Secondary Navigation"]');
+//     if (nav) {
+//       const homeLink = nav.querySelector('.secondary-nav-home-link-box a');
+//       if (homeLink) {
+//         const text = homeLink.textContent.trim();
+//         const href = homeLink.href;
+//         const key = text + href;
+//         if (!seen.has(key)) {
+//           seen.add(key);
+//           crumbs.push({ text, href, page: pageNum });
+//         }
+//       }
+//       const subLinks = nav.querySelectorAll('.secondary-nav-list .navigation-link');
+//       subLinks.forEach((link) => {
+//         const text = link.textContent.trim();
+//         const href = link.href;
+//         const key = text + href;
+//         if (!seen.has(key)) {
+//           seen.add(key);
+//           crumbs.push({ text, href, page: pageNum + 1 }); // temp, updated in recursion
+//         }
+//       });
+//     }
+//     return crumbs;
+//   }, counter.current);
+
+//   // --- SCRAPE SECTIONS / TABS ---
+//   const sections = await page.evaluate(() => {
+//     const collected = [];
+//     const seenHeadings = new Set();
+
+//     // Main visible section headings
+//     document.querySelectorAll('.horizontaltab-section-title').forEach((card) => {
+//       const text = card.textContent.trim();
+//       if (!seenHeadings.has(text.toLowerCase())) {
+//         seenHeadings.add(text.toLowerCase());
+//         collected.push({ heading: text, content: [] });
+//       }
+//     });
+
+//     // Tab navigation links
+//     document.querySelectorAll('.horizontaltab-nav-link').forEach((tab) => {
+//       const title = tab.textContent.trim();
+//       const link = tab.href || null;
+//       if (!seenHeadings.has(title.toLowerCase())) {
+//         seenHeadings.add(title.toLowerCase());
+//         collected.push({ heading: title, href: link, content: [] });
+//       }
+//     });
+
+//     return collected;
+//   });
+
+//   const pageData = { url, pageNumber: counter.current, breadcrumbs, sections };
+
+//   // --- RECURSE INTO BREADCRUMB PAGES ---
+//   for (let crumb of breadcrumbs) {
+//     if (crumb.href && !visited.has(crumb.href)) {
+//       counter.current++;
+//       crumb.page = counter.current; // assign real page number
+//       const childData = await scrapeBreadcrumbsAndContent(page, crumb.href, visited, counter, level + 1);
+//       if (childData) {
+//         pageData[`breadcrumb_page_${crumb.page}`] = childData;
+//       }
+//     }
+//   }
+
+//   // --- RECURSE INTO TAB PAGES ---
+//   for (let [index, section] of sections.entries()) {
+//     if (section.href && !visited.has(section.href)) {
+//       counter.current++;
+//       section.page = counter.current;
+//       const tabData = await scrapeBreadcrumbsAndContent(page, section.href, visited, counter, level + 1);
+//       if (tabData) {
+//         pageData.sections[index].childPage = tabData;
+//       }
+//     }
+//   }
+
+//   return pageData;
+// }
+
+
+// async function startScraping(startUrl) {
+//   const browser = await puppeteer.launch({ headless: true });
+//   const page = await browser.newPage();
+//   const visited = new Set();
+//   const counter = { current: 1 };
+
+//   const finalData = await scrapeBreadcrumbsAndContent(page, startUrl, visited, counter);
+
+//   await browser.close();
+//   return finalData;
+// }
+
+
+// // --- MAIN EXECUTION ---
+// const scrapeRelevantContentt = async (req, res) => {
+//   const url = req.body.targetUrl; // read from body
+//   if (!url) {
+//     return res.status(400).json({ error: 'targetUrl is required in body' });
+//   }
+//   try {
+//     const data = await startScraping(url);
+//     res.json(data);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'Scraping failed' });
+//   }
+// };
+
+
+
+//----nested --------
+
+
+// working breadcrumbs till depth 2 
+// const scrapeRelevantContent = async (req, res) => {
+//   const { targetUrl, depth = 4 } = req.body;
+//   try {
+//     console.log(`[SCRAPER] Start scraping root URL: ${targetUrl}, MaxDepth=${depth}`);
+//     const data = await scrapeCombineResult(targetUrl, depth);
+//     console.log(`[SCRAPER] Completed scraping for ${targetUrl}`);
+//     res.json(data);
+//   } catch (err) {
+//     console.error("Scraping failed:", err);
+//     res.status(500).json({ message: "Error scraping content" });
+//   }
+// };
+
+// async function scrapeCombineResult(targetUrl, maxDepth) {
+//   return await startScraping(targetUrl, 0, maxDepth, new Set(), new URL(targetUrl).origin);
+// }
+
+// async function startScraping(targetUrl, currentDepth, maxDepth, visited, rootDomain) {
+//   if (currentDepth > maxDepth) return null;
+//   if (visited.has(targetUrl)) return null;
+//   visited.add(targetUrl);
+
+//   console.log(`[SCRAPER][Depth=${currentDepth}] Navigating: ${targetUrl}`);
+
+//   const browser = await puppeteer.launch({ headless: "new" });
+//   const page = await browser.newPage();
+//   await page.goto(targetUrl, { waitUntil: "networkidle2", timeout: 60000 });
+
+//   const data = await page.evaluate(() => {
+//     const clean = (txt) => (txt || "").replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+//     const isVis = (el) => {
+//       if (!el) return false;
+//       const s = window.getComputedStyle(el);
+//       return s.display !== "none" && s.visibility !== "hidden" &&
+//         el.offsetHeight > 0 && el.offsetWidth > 0;
+//     };
+
+//     // Sections collection
+//     const sections = [];
+//     const sectionMap = new Map();
+
+//     // Meta description
+//     let metaDescription = null;
+//     const metaTag = document.querySelector('meta[name="description"]');
+//     if (metaTag) metaDescription = metaTag.getAttribute("content") || "";
+
+//     // Headings & paragraphs
+//     const shouldSkip = (txt) => {
+//       const lc = txt.toLowerCase();
+//       return !txt || txt.length < 20 ||
+//         lc.includes("cookie") || lc.includes("embed") ||
+//         txt.trim().toLowerCase() === "get to know us better";
+//     };
+//     const existsInSections = (sections, text) => {
+//       const cleanText = text.toLowerCase();
+//       return sections.some(sec =>
+//         sec.heading?.toLowerCase() === cleanText ||
+//         (sec.content && sec.content.some(c =>
+//           typeof c === "string"
+//             ? c.toLowerCase() === cleanText
+//             : (c.text && c.text.toLowerCase() === cleanText)
+//         ))
+//       );
+//     };
+
+//     document.querySelectorAll("h1,h2,p").forEach(h => {
+//       if (!isVis(h)) return;
+//       const text = clean(h.textContent);
+//       if (shouldSkip(text)) return;
+//       const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
+//       let paragraph = next.find(el => ["P", "DIV", "SPAN"].includes(el.tagName) && isVis(el));
+//       const content = paragraph ? [clean(paragraph.textContent)] : [];
+//       if (text && !existsInSections(sections, text) && (content.length > 0 || text.length > 0)) {
+//         sections.push({ heading: text, content });
+//       }
+//     });
+
+//     // Tabs & Cards
+//     const tabShouldExclude = (text) => {
+//       if (!text) return true;
+//       const lower = text.toLowerCase();
+//       return (text.length < 2 || lower.includes("cookie") || lower.includes("privacy") || lower.includes("login") || lower.includes("©"));
+//     };
+//     const addTabCard = (heading, tabname, tabcards) => {
+//       if (!heading || !tabname || !tabcards.length) return;
+//       if (!sectionMap.has(heading)) {
+//         sectionMap.set(heading, { heading, tabs: [] });
+//       }
+//       const section = sectionMap.get(heading);
+//       let tabObj = section.tabs.find(t => t.tabname === tabname);
+//       if (!tabObj) {
+//         tabObj = { tabname, tabcards: [] };
+//         section.tabs.push(tabObj);
+//       }
+//       tabcards.forEach(c => {
+//         if (!tabObj.tabcards.some(tc => tc.text === c.text && tc.href === c.href)) {
+//           tabObj.tabcards.push(c);
+//         }
+//       });
+//     };
+
+//     document.querySelectorAll(".horizontaltab-main-section").forEach(sectionEl => {
+//       const mainHeading = clean(sectionEl.querySelector(".horizontaltab-section-title")?.textContent);
+//       if (!mainHeading || tabShouldExclude(mainHeading)) return;
+
+//       const tabs = Array.from(sectionEl.querySelectorAll(".horizontaltab-nav-link"));
+//       tabs.forEach(tab => {
+//         const tabname = clean(tab.textContent);
+//         const panelId = tab.getAttribute("href");
+//         if (!panelId) return;
+//         const panel = sectionEl.querySelector(panelId);
+//         if (!panel) return;
+//         const tabcards = Array.from(panel.querySelectorAll("a"))
+//           .map(card => {
+//             const text = clean(card.querySelector("h3, h4, p")?.textContent);
+//             const href = card.getAttribute("href") || "";
+//             return text && !tabShouldExclude(text) ? { text, href } : null;
+//           })
+//           .filter(Boolean);
+//         addTabCard(mainHeading, tabname, tabcards);
+//       });
+//     });
+
+//     const cardSections = Array.from(sectionMap.values());
+//     if (cardSections.length) sections.push({ cards: cardSections });
+
+//     // Breadcrumbs
+//     const breadcrumbs = [];
+//     const seen = new Set();
+//     document.querySelectorAll('nav[aria-label="Secondary Navigation"] a').forEach((a, index) => {
+//       const text = clean(a.textContent);
+//       const href = a.getAttribute("href");
+//       if (text && href) {
+//         const key = `${text}|${href}`;
+//         if (!seen.has(key)) {
+//           seen.add(key);
+//           breadcrumbs.push({ text, href });
+//         }
+//       }
+//     });
+
+//     return {
+//       url: window.location.href,
+//       title: clean(document.title),
+//       metaDescription,
+//       breadcrumbs,
+//       sections
+//     };
+//   });
+
+//   await browser.close();
+
+//   // Attach depth & recursive scraping
+//   data.depth = currentDepth;
+
+//   // Dedup + filter breadcrumbs
+//   const uniqueBreadcrumbs = [];
+//   const seenBC = new Set();
+//   for (let bc of data.breadcrumbs) {
+//     const fullUrl = new URL(bc.href, data.url).href;
+//     if (fullUrl === targetUrl) continue; // Skip self
+//     if (seenBC.has(fullUrl)) continue;
+//     seenBC.add(fullUrl);
+
+//     const isSameDomain = fullUrl.startsWith(rootDomain);
+//     if (!isSameDomain && currentDepth > 0) continue; // external only depth=0
+
+//     let childSections = {};
+//     if (isSameDomain && currentDepth < maxDepth) {
+//       console.log(`[SCRAPER][Depth=${currentDepth}] -> Recursing into breadcrumb: ${fullUrl}`);
+//       childSections = await startScraping(fullUrl, currentDepth + 1, maxDepth, visited, rootDomain);
+//     }
+
+//     uniqueBreadcrumbs.push({
+//       text: bc.text,
+//       href: fullUrl,
+//       depth: currentDepth + 1,
+//       sections: childSections || {}
+//     });
+//   }
+//   data[`breadcrumbs_${currentDepth}`] = uniqueBreadcrumbs;
+//   delete data.breadcrumbs;
+
+//   // Same for tabcards recursion
+//   if (data.sections) {
+//     for (const section of data.sections) {
+//       if (section.cards) {
+//         for (const cardGroup of section.cards) {
+//           for (const tab of cardGroup.tabs) {
+//             for (const card of tab.tabcards) {
+//               const fullUrl = new URL(card.href, data.url).href;
+//               const isSameDomain = fullUrl.startsWith(rootDomain);
+//               let childSections = {};
+//               if (isSameDomain && currentDepth < maxDepth) {
+//                 console.log(`[SCRAPER][Depth=${currentDepth}] -> Recursing into tabcard: ${fullUrl}`);
+//                 childSections = await startScraping(fullUrl, currentDepth + 1, maxDepth, visited, rootDomain);
+//               }
+//               card.depth = currentDepth + 1;
+//               card.sections = childSections || {};
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   console.log(`[SCRAPER][Depth=${currentDepth}] Completed scraping: ${targetUrl}`);
+//   return data;
+// }
+
+// trying sections depth 
+/* =========================
+   SAFE HELPERS (Node side)
+   ========================= */
+function toAbsoluteUrl(raw, base) {
+  if (!raw || typeof raw !== "string") return null;
+  const s = raw.trim();
+  if (!s || s === "#" || s.startsWith("#")) return null;
+  const lower = s.toLowerCase();
+  if (
+    lower.startsWith("javascript:") ||
+    lower.startsWith("mailto:") ||
+    lower.startsWith("tel:")
+  ) {
+    return null;
+  }
   try {
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+    return new URL(s, base).href;
+  } catch {
+    return null;
+  }
+}
 
-    const data = await page.evaluate(() => {
-      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+function sameOriginSafely(a, b) {
+  try {
+    return new URL(a).origin === new URL(b).origin;
+  } catch {
+    return false;
+  }
+}
 
-      const sections = [];
+/* =======================================
+   MAIN RECURSIVE SCRAPER USING ONE PAGE
+   ======================================= */
+async function scrapePages(page, targetUrl, visited, level = 0, maxDepth = 4, startOrigin = "") {
+  if (!targetUrl) return null;
+  if (visited.has(targetUrl)) {
+    console.log(`[SKIP] Already visited: ${targetUrl}`);
+    return null;
+  }
+  visited.add(targetUrl);
 
+  console.log(`[GO] depth=${level} → ${targetUrl}`);
+  await page.goto(targetUrl, { waitUntil: "networkidle2", timeout: 60000 });
 
-      //-------- normal text --------------
+  // Evaluate in browser context and build a clean JSON (no circular refs)
+  const pageData = await page.evaluate((currentUrl) => {
+    // --- helpers inside the page context ---
+    function clean(txt) {
+      return txt ? txt.replace(/\s+/g, " ").trim() : "";
+    }
+    function toAbs(raw, base) {
+      if (!raw || typeof raw !== "string") return null;
+      const s = raw.trim();
+      if (!s || s === "#" || s.startsWith("#")) return null;
+      const lower = s.toLowerCase();
+      if (
+        lower.startsWith("javascript:") ||
+        lower.startsWith("mailto:") ||
+        lower.startsWith("tel:")
+      ) {
+        return null;
+      }
+      try {
+        return new URL(s, base).href;
+      } catch {
+        return null;
+      }
+    }
 
-      const isVis = el => {
-        const s = window.getComputedStyle(el);
-        return s && s.display !== 'none' && s.visibility !== 'hidden'
-          && el.offsetHeight > 0 && el.offsetWidth > 0;
-      };
+    const sections = [];
+    const sectionMap = new Map();
 
-      const shouldSkip = txt => {
-        const lc = txt.toLowerCase();
-        return !txt || txt.length < 20
-          || lc.includes('cookie') || lc.includes('embed')
-          || txt.trim().toLowerCase() === 'get to know us better'; // Skip this heading entirely
-      };
+    // ---------- Normal text ----------
+    const isVis = (el) => {
+      if (!el) return false;
+      const s = window.getComputedStyle(el);
+      return s.display !== "none" && s.visibility !== "hidden" && el.offsetHeight > 0 && el.offsetWidth > 0;
+    };
+    const shouldSkip = (txt) => {
+      if (!txt) return true;
+      const t = txt.trim();
+      const lc = t.toLowerCase();
+      return (
+        t.length < 20 ||
+        lc.includes("cookie") ||
+        lc.includes("embed") ||
+        lc === "get to know us better"
+      );
+    };
 
+    document.querySelectorAll("h1,h2,p").forEach((h) => {
+      if (!isVis(h)) return;
+      const text = clean(h.textContent);
+      if (shouldSkip(text)) return;
+      const next = h.nextElementSibling;
+      let paragraph =
+        next && ["P", "DIV", "SPAN"].includes(next.tagName) && isVis(next)
+          ? clean(next.textContent)
+          : "";
+      sections.push({ heading: text, content: paragraph ? [paragraph] : [] });
+    });
 
-      document.querySelectorAll('h2').forEach(h => {
-        if (!isVis(h)) return;
-        const text = clean(h.textContent);
-        if (shouldSkip(text)) return;
-        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
-        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
-        const content = paragraph ? [clean(paragraph.textContent)] : [];
-        sections.push({ heading: text, content });
-      });
-      //-------- end normal text --------------
+    // ---------- Tabs / cards ----------
+    const tabShouldExclude = (text) => {
+      if (!text) return true;
+      const lc = text.toLowerCase();
+      return text.length < 2 || lc.includes("cookie") || lc.includes("privacy") || lc.includes("login") || lc.includes("©");
+    };
 
+    document.querySelectorAll(".horizontaltab-main-section").forEach((sectionEl) => {
+      const mainHeading = clean(sectionEl.querySelector(".horizontaltab-section-title")?.textContent);
+      if (!mainHeading || tabShouldExclude(mainHeading)) return;
 
-      // -------- 1. Loop through each horizontal tab section --------
-      document.querySelectorAll('.horizontaltab-section').forEach(sectionEl => {
-        const mainCategory = clean(sectionEl.querySelector('.horizontaltab-section-title')?.textContent);
-        if (shouldSkip(mainCategory)) return;
+      const tabs = Array.from(sectionEl.querySelectorAll(".horizontaltab-nav-link"));
+      tabs.forEach((tab) => {
+        const tabname = clean(tab.textContent);
+        const panelId = tab.getAttribute("href");
+        if (!panelId) return;
+        const panel = sectionEl.querySelector(panelId);
+        if (!panel) return;
 
-        // Get all subcategory tabs
-        const subTabs = Array.from(sectionEl.querySelectorAll('.horizontaltab-nav-link'));
+        const tabcards = Array.from(panel.querySelectorAll("a"))
+          .map((a) => {
+            const text = clean(a.querySelector("h3, h4, p")?.textContent);
+            const href = toAbs(a.getAttribute("href") || "", currentUrl);
+            return text && href ? { text, href } : null;
+          })
+          .filter(Boolean);
 
-        subTabs.forEach(tab => {
-          const subCategory = clean(tab.textContent);
-          const panelId = tab.getAttribute('href');
-          if (!panelId) return;
-
-          const panel = sectionEl.querySelector(panelId);
-          if (!panel) return;
-
-          // Extract cards inside each tab panel
-          const cards = Array.from(panel.querySelectorAll('a'))
-            .map(card => {
-              const title = clean(card.querySelector('h3, h4, p')?.textContent);
-              const href = card.getAttribute('href') || '';
-              return title ? (href ? `${title} (${href})` : title) : '';
-            })
-            .filter(Boolean);
-
-          if (cards.length) {
-            sections.push({
-              heading: mainCategory,
-              subcategory: subCategory,
-              content: cards
-            });
+        if (!sectionMap.has(mainHeading)) {
+          sectionMap.set(mainHeading, { heading: mainHeading, tabs: [] });
+        }
+        const sec = sectionMap.get(mainHeading);
+        let t = sec.tabs.find((x) => x.tabname === tabname);
+        if (!t) {
+          t = { tabname, tabcards: [] };
+          sec.tabs.push(t);
+        }
+        tabcards.forEach((c) => {
+          if (!t.tabcards.some((e) => e.href === c.href && e.text === c.text)) {
+            t.tabcards.push(c);
           }
         });
       });
-
-      // -------- 2. Other standalone card sections (not horizontal tabs) --------
-      document.querySelectorAll('section').forEach(section => {
-        // Skip if already part of a horiz tab section
-        if (section.closest('.horizontaltab-section')) return;
-
-        const headingEl = section.querySelector('h2, h3');
-        if (!headingEl) return;
-
-        const heading = clean(headingEl.textContent);
-        const cards = Array.from(section.querySelectorAll('a'))
-          .map(card => {
-            const title = clean(card.querySelector('h3, h4, p')?.textContent);
-            const href = card.getAttribute('href') || '';
-            return title && title.length > 2 ? (href ? `${title} (${href})` : title) : '';
-          })
-          .filter(Boolean);
-
-        if (cards.length && heading) {
-          sections.push({ heading, content: cards });
-        }
-      });
-
-      return {
-        url: window.location.href,
-        title: clean(document.title),
-        description: '',
-        sections
-      };
     });
 
-    await browser.close();
-    res.json(data);
+    const cardSections = Array.from(sectionMap.values());
+    if (cardSections.length) sections.push({ cards: cardSections });
 
-  } catch (err) {
-    console.error('Scraping failed:', err);
-    res.status(500).json({ message: 'Error scraping content' });
-  }
-};
-
-const scrapeRelevantContent12Agust = async (req, res) => {
-  const { targetUrl } = req.body;
-
-  try {
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
-
-    const data = await page.evaluate(() => {
-      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-
-      const sections = [];
-
-
-      //-------- normal text --------------
-      const isVis = el => {
-        const s = window.getComputedStyle(el);
-        return s && s.display !== 'none' && s.visibility !== 'hidden'
-          && el.offsetHeight > 0 && el.offsetWidth > 0;
-      };
-
-      const shouldSkip = txt => {
-        const lc = txt.toLowerCase();
-        return !txt || txt.length < 20
-          || lc.includes('cookie') || lc.includes('embed')
-          || txt.trim().toLowerCase() === 'get to know us better'; // Skip this heading entirely
-      };
-
-      //check exiting text or duplicate removal.
-      const existsInSections = (sections, text) => {
-        const cleanText = text.toLowerCase();
-        return sections.some(sec =>
-          sec.heading.toLowerCase() === cleanText ||
-          (sec.content && sec.content.some(c => c.toLowerCase() === cleanText))
-        );
-      };
-
-
-
-      document.querySelectorAll('h1,h2,p').forEach(h => {
-        if (!isVis(h)) return;
-        const text = clean(h.textContent);
-        if (shouldSkip(text)) return;
-        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
-        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
-        const content = paragraph ? [clean(paragraph.textContent)] : [];
-        //sections.push({ heading: text, content });
-        if (text && !existsInSections(sections, text) && (content.length > 0 || text.length > 0)) {
-          sections.push({ heading: text, content });
+    // ---------- Breadcrumbs ----------
+    const breadcrumbs = [];
+    const seenBC = new Set();
+    document.querySelectorAll('nav[aria-label="Secondary Navigation"] a').forEach((a, idx) => {
+      const text = clean(a.textContent);
+      const href = toAbs(a.getAttribute("href") || "", currentUrl);
+      if (text && href) {
+        const key = `${text}|${href}`;
+        if (!seenBC.has(key)) {
+          seenBC.add(key);
+          breadcrumbs.push({ text, href, idx });
         }
-      });
-      //-------- end normal text --------------
+      }
+    });
 
+    return {
+      url: currentUrl,
+      title: clean(document.title),
+      sections,
+      breadcrumbs
+    };
+  }, targetUrl);
 
-      // // -------- 1. Loop through each horizontal tab section --------
-      // document.querySelectorAll('.horizontaltab-main-section').forEach(sectionEl => {
-      //   const mainCategory = clean(sectionEl.querySelector('.horizontaltab-section-title')?.textContent);
-      //   if (shouldSkip(mainCategory)) return;
+  console.log(
+    `[OK] depth=${level} got ${pageData.sections.length} section-block(s), ${pageData.breadcrumbs.length} breadcrumb(s)`
+  );
 
-      //   // Get all subcategory tabs
-      //   const subTabs = Array.from(sectionEl.querySelectorAll('.horizontaltab-nav-link'));
+  // ------- Recurse into breadcrumbs -------
+  for (const bc of pageData.breadcrumbs) {
+    // If matches current page, copy sections (no recursion)
+    if (bc.href === targetUrl) {
+      console.log(`[COPY] depth=${level} breadcrumb self-link → copy sections (${bc.href})`);
+      bc.depth = level + 1;
+      bc.sections = pageData.sections; // copy existing sections
+      continue;
+    }
 
-      //   subTabs.forEach(tab => {
-      //     const subCategory = clean(tab.textContent);
-      //     const panelId = tab.getAttribute('href');
-      //     if (!panelId) return;
+    bc.depth = level + 1;
 
-      //     const panel = sectionEl.querySelector(panelId);
-      //     if (!panel) return;
+    // Only recurse if within maxDepth and same-origin
+    if (level + 1 <= maxDepth && sameOriginSafely(bc.href, startOrigin)) {
+      console.log(`[→] depth=${bc.depth} scraping breadcrumb ${bc.href}`);
+      const child = await scrapePages(page, bc.href, visited, level + 1, maxDepth, startOrigin);
+      bc.sections = child ? child.sections : {};
+    } else {
+      // Outside domain or too deep
+      bc.sections = {};
+      console.log(
+        `[SKIP] breadcrumb depth=${bc.depth} ${bc.href} (too deep or cross-origin)`
+      );
+    }
+  }
 
-      //     // Extract cards inside each tab panel
-      //     const cards = Array.from(panel.querySelectorAll('a'))
-      //       .map(card => {
-      //         const title = clean(card.querySelector('h3, h4, p')?.textContent);
-      //         const href = card.getAttribute('href') || '';
-      //         return title ? (href ? `${title} (${href})` : title) : '';
-      //       })
-      //       .filter(Boolean);
-
-      //     if (cards.length) {
-      //       sections.push({
-      //         heading: mainCategory,
-      //         subcategory: subCategory,
-      //         content: cards
-      //       });
-      //     }
-      //   });
-      // });
-
-      // -------- 2. Other standalone card sections (not horizontal tabs) --------
-      document.querySelectorAll('section').forEach(section => {
-        // Skip if already part of a horiz tab section
-        if (section.closest('.horizontaltab-section')) return;
-
-        const headingEl = section.querySelector('h2, h3');
-        if (!headingEl) return;
-
-        const heading = clean(headingEl.textContent);
-        const cards = Array.from(section.querySelectorAll('a'))
-          .map(card => {
-            const title = clean(card.querySelector('h3, h4, p')?.textContent);
-            const href = card.getAttribute('href') || '';
-            // return title && title.length > 2 ? (href ? `${title} (${href})` : title) : '';
-            return title && title.length > 2 ? (href ? `${title} href:(${href})` : title) : '';
-
-            //const title_href = {"title":title && title.length > 2 ? title : '', "href":href?href:''}
-            //return title_href;
-          })
-          .filter(Boolean);
-
-        if (cards.length && heading) {
-          // sections.push({ heading, content: cards });
-          if (heading === "Get to know us better") {
-            // nothing 
+  // ------- Recurse into tab/section cards -------
+  for (const sec of pageData.sections) {
+    if (!sec.cards) continue;
+    for (const group of sec.cards) {
+      for (const tab of group.tabs) {
+        for (const card of tab.tabcards) {
+          card.depth = level + 1;
+          if (card.href === targetUrl) {
+            console.log(`[COPY] depth=${level} card self-link → copy sections (${card.href})`);
+            card.sections = pageData.sections;
+            continue;
+          }
+          if (level + 1 <= maxDepth && sameOriginSafely(card.href, startOrigin)) {
+            console.log(`[→] depth=${card.depth} scraping card ${card.href}`);
+            const child = await scrapePages(page, card.href, visited, level + 1, maxDepth, startOrigin);
+            card.sections = child ? child.sections : {};
           } else {
-            sections.push({ heading, content: cards });
-
+            card.sections = {};
+            console.log(
+              `[SKIP] card depth=${card.depth} ${card.href} (too deep or cross-origin)`
+            );
           }
         }
-      });
-
-      return {
-        url: window.location.href,
-        title: clean(document.title),
-        description: '',
-        sections
-      };
-    });
-
-    await browser.close();
-    res.json(data);
-
-  } catch (err) {
-    console.error('Scraping failed:', err);
-    res.status(500).json({ message: 'Error scraping content' });
+      }
+    }
   }
-};
 
-const scrapeRelevantContent14 = async (req, res) => {
-  const { targetUrl } = req.body;
+  return pageData;
+}
 
+/* ===========================
+   PUBLIC ENTRY FOR YOUR API
+   =========================== */
+async function scrapeTree(targetUrl, maxDepth = 4) {
+  const browser = await puppeteer.launch({ headless: "new" });
+  const page = await browser.newPage();
+
+  let startOrigin = "";
   try {
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
-
-    const data = await page.evaluate(() => {
-      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-
-      const sections = [];
-
-      const isVis = el => {
-        const s = window.getComputedStyle(el);
-        return s && s.display !== 'none' && s.visibility !== 'hidden' &&
-          el.offsetHeight > 0 && el.offsetWidth > 0;
-      };
-
-      const shouldSkip = txt => {
-        const lc = txt.toLowerCase();
-        return !txt || txt.length < 20 ||
-          lc.includes('cookie') || lc.includes('embed') ||
-          txt.trim().toLowerCase() === 'get to know us better';
-      };
-
-      //Check duplicates in sections
-      const existsInSections = (sections, text) => {
-        const cleanText = text.toLowerCase();
-        return sections.some(sec =>
-          sec.heading.toLowerCase() === cleanText ||
-          (sec.content && sec.content.some(c =>
-            typeof c === 'string'
-              ? c.toLowerCase() === cleanText
-              : (c.text && c.text.toLowerCase() === cleanText)
-          ))
-        );
-      };
-
-      // -------- 1. Normal text sections --------
-      document.querySelectorAll('h1,h2,p').forEach(h => {
-        if (!isVis(h)) return;
-        const text = clean(h.textContent);
-        if (shouldSkip(text)) return;
-
-        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
-        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
-        const content = paragraph ? [clean(paragraph.textContent)] : [];
-
-        if (text && !existsInSections(sections, text) && (content.length > 0 || text.length > 0)) {
-          sections.push({ heading: text, content });
-        }
-      });
-
-      // -------- 2. Other standalone card sections --------
-      document.querySelectorAll('.horizontaltab-main-section').forEach(section => {
-        const tabNameEl = Array.from(section.querySelectorAll('.horizontaltab-nav-link'));
-        const tabname = tabNameEl ? clean(tabNameEl.textContent) : '';
-
-        const headingEl = section.querySelector('h2, h3');
-        const heading = headingEl ? clean(headingEl.textContent) : tabname || 'Untitled';
-
-        const cards = Array.from(section.querySelectorAll('a'))
-          .map(card => {
-            const title = clean(card.querySelector('h3, h4, p')?.textContent);
-            const href = card.getAttribute('href') || '';
-            return title && title.length > 2
-              ? { tabname, text: title, href }
-              : null;
-          })
-          .filter(Boolean);
-
-        if (cards.length && heading && !existsInSections(sections, heading)) {
-          sections.push({ heading, content: cards });
-        }
-      });
-
-
-
-
-
-      return {
-        url: window.location.href,
-        title: clean(document.title),
-        description: '',
-        sections
-      };
-    });
-
-    await browser.close();
-    res.json(data);
-
-  } catch (err) {
-    console.error('Scraping failed:', err);
-    res.status(500).json({ message: 'Error scraping content' });
+    startOrigin = new URL(targetUrl).origin;
+  } catch {
+    throw new Error(`Invalid start URL: ${targetUrl}`);
   }
-};
 
+  const visited = new Set();
+  const data = await scrapePages(page, targetUrl, visited, 0, maxDepth, startOrigin);
 
-const scrapeRelevantContent_today = async (req, res) => {
-  const { targetUrl } = req.body;
+  await browser.close();
+  return data;
+}
 
-  try {
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
-
-    const data = await page.evaluate(() => {
-      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-
-      const isVis = el => {
-        if (!el) return false;
-        const s = window.getComputedStyle(el);
-        return s.display !== 'none' && s.visibility !== 'hidden'
-          && el.offsetHeight > 0 && el.offsetWidth > 0;
-      };
-
-      const shouldExclude = (text) => {
-        const lower = text.toLowerCase();
-        return (
-          !text ||
-          text.length < 30 ||
-          lower.includes('cookie') ||
-          lower.includes('privacy') ||
-          lower.includes('login') ||
-          lower.includes('©') ||
-          lower.includes('audio') ||
-          lower.includes('wrong email') ||
-          lower.includes('item 1 of 1') ||
-          lower.includes('share this') ||
-          lower.includes('select all') ||
-          lower.includes('transcript') ||
-          lower.includes('download') ||
-          lower.includes('embed link') ||
-          lower.includes('email address') ||
-          /corine adams/i.test(text) ||
-          /^0:\d{2}/.test(text) ||
-          /item \d+ of \d+/i.test(text) ||
-          /tcs' expertise/i.test(lower) ||
-          /made them the perfect partner/i.test(lower)
-        );
-      };
-
-      // Store merged results in a map
-      const sectionMap = new Map();
-
-      const addSection = (heading, subcategory, content) => {
-        const key = heading + '||' + (subcategory || '');
-        if (!sectionMap.has(key)) {
-          sectionMap.set(key, { heading, subcategory, content: [...content] });
-        } else {
-          const existing = sectionMap.get(key);
-          existing.content.push(...content);
-          existing.content = [...new Set(existing.content)]; // remove duplicate cards
-        }
-      };
-
-      // -------- 1. Normal text headings (only visible) --------
-      document.querySelectorAll('h2,span,p').forEach(h => {
-        if (!isVis(h) || !isVis(h.closest('section, div'))) return;
-        const text = clean(h.textContent);
-        if (shouldExclude(text)) return;
-
-        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
-        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
-        const content = paragraph ? [clean(paragraph.textContent)] : [];
-
-        addSection(text, null, content);
-      });
-
-      // -------- 2. Loop through each horizontal tab section (active + inactive) --------
-      document.querySelectorAll('.horizontaltab-main-section').forEach(sectionEl => {
-        const mainCategory = clean(sectionEl.querySelector('.horizontaltab-section-title')?.textContent);
-
-        // Get all subcategory tabs
-        const subTabs = Array.from(sectionEl.querySelectorAll('.horizontaltab-nav-link'));
-
-        subTabs.forEach(tab => {
-          const subCategory = clean(tab.textContent);
-          const panelId = tab.getAttribute('href');
-          if (!panelId) return;
-
-          const panel = sectionEl.querySelector(panelId);
-          if (!panel) return; // remove visibility check to allow inactive content
-
-          const cards = Array.from(panel.querySelectorAll('a'))
-            .map(card => {
-              const title = clean(card.querySelector('h3, h4, p')?.textContent);
-              const href = card.getAttribute('href') || '';
-              return title ? (href ? `${title} (${href})` : title) : '';
-            })
-            .filter(Boolean);
-
-          if (cards.length) {
-            addSection(mainCategory, subCategory, cards);
-          }
-        });
-      });
-
-      // -------- 3. Other standalone visible card sections --------
-      document.querySelectorAll('section').forEach(section => {
-        if (section.closest('.horizontaltab-section') || !isVis(section)) return;
-
-        const headingEl = section.querySelector('h2, h3');
-        if (!headingEl || !isVis(headingEl)) return;
-
-        const heading = clean(headingEl.textContent);
-        const cards = Array.from(section.querySelectorAll('a'))
-          .filter(card => isVis(card))
-          .map(card => {
-            const title = clean(card.querySelector('h3, h4, p')?.textContent);
-            const href = card.getAttribute('href') || '';
-            return title && title.length > 2 ? (href ? `${title} (${href})` : title) : '';
-          })
-          .filter(Boolean);
-
-        if (cards.length && heading) {
-          addSection(heading, null, cards);
-        }
-      });
-
-      // Convert map back to array
-      const sections = Array.from(sectionMap.values());
-
-      return {
-        url: window.location.href,
-        title: clean(document.title),
-        description: '',
-        sections
-      };
-    });
-
-    await browser.close();
-    res.json(data);
-
-  } catch (err) {
-    console.error('Scraping failed:', err);
-    res.status(500).json({ message: 'Error scraping content' });
-  }
-};
-
-
+/* ===========================
+   EXPRESS HANDLER (API)
+   =========================== */
 const scrapeRelevantContent = async (req, res) => {
-  const { targetUrl } = req.body;
+  const { targetUrl, maxDepth = 4 } = req.body || {};
+  if (!targetUrl) {
+    return res.status(400).json({ message: "Missing targetUrl" });
+  }
+  console.log(`[INIT] target=${targetUrl} maxDepth=${maxDepth}`);
 
   try {
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 60000 });
-
-    const data = await page.evaluate(() => {
-
-      // Meta description
-      let metaDescription = null;
-      const metaTag = document.querySelector('meta[name="description"]');
-      if (metaTag) metaDescription = metaTag.getAttribute('content') || '';
-
-
-
-      //--------------------------------------------------------------------------------------------------
-      const clean = txt => (txt || '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
-      const isVis = el => {
-        if (!el) return false;
-        const s = window.getComputedStyle(el);
-        return s.display !== 'none' && s.visibility !== 'hidden'
-          && el.offsetHeight > 0 && el.offsetWidth > 0;
-      };
-      //--------------------------------------------------------------------------------------------------
-
-
-      //------------------------ NORMAL TEXT--------------------------------------------------------------------------
-      const sections = [];
-      const shouldSkip = txt => {
-        const lc = txt.toLowerCase();
-        return !txt || txt.length < 20 ||
-          lc.includes('cookie') || lc.includes('embed') ||
-          txt.trim().toLowerCase() === 'get to know us better';
-      };
-      //Check duplicates in sections
-      const existsInSections = (sections, text) => {
-        const cleanText = text.toLowerCase();
-        return sections.some(sec =>
-          sec.heading.toLowerCase() === cleanText ||
-          (sec.content && sec.content.some(c =>
-            typeof c === 'string'
-              ? c.toLowerCase() === cleanText
-              : (c.text && c.text.toLowerCase() === cleanText)
-          ))
-        );
-      };
-
-      // -------- 1. Normal text sections --------
-      document.querySelectorAll('h1,h2,p').forEach(h => {
-        if (!isVis(h)) return;
-        const text = clean(h.textContent);
-        if (shouldSkip(text)) return;
-
-        const next = Array.from(h.nextElementSibling ? [h.nextElementSibling] : []);
-        let paragraph = next.find(el => ['P', 'DIV', 'SPAN'].includes(el.tagName) && isVis(el));
-        const content = paragraph ? [clean(paragraph.textContent)] : [];
-
-        if (text && !existsInSections(sections, text) && (content.length > 0 || text.length > 0)) {
-          sections.push({ heading: text, content });
-        }
-      });
-
-      //-------------------------- END NORMAL TEXT------------------------------------------------------------------------
-
-
-
-
-
-
-      //--------------------CARDS-------------------------------------------------------------------------------
-      const tabShouldExclude = text => {
-        if (!text) return true;
-        const lower = text.toLowerCase();
-        return (
-          text.length < 2 ||
-          lower.includes('cookie') ||
-          lower.includes('privacy') ||
-          lower.includes('login') ||
-          lower.includes('©')
-        );
-      };
-      // Store sections uniquely
-      const sectionMap = new Map();
-      const addTabCard = (heading, tabname, tabcards) => {
-        if (!heading || !tabname || !tabcards.length) return;
-
-        if (!sectionMap.has(heading)) {
-          sectionMap.set(heading, { heading, tabs: [] });
-        }
-        const section = sectionMap.get(heading);
-
-        // Check if tab already exists
-        let tabObj = section.tabs.find(t => t.tabname === tabname);
-        if (!tabObj) {
-          tabObj = { tabname, tabcards: [] };
-          section.tabs.push(tabObj);
-        }
-
-        // Push unique tab cards
-        tabcards.forEach(c => {
-          if (!tabObj.tabcards.some(tc => tc.text === c.text && tc.href === c.href)) {
-            tabObj.tabcards.push(c);
-          }
-        });
-      };
-      // -------- Loop through each horizontal tab section --------
-      document.querySelectorAll('.horizontaltab-main-section').forEach(sectionEl => {
-        const mainHeading = clean(sectionEl.querySelector('.horizontaltab-section-title')?.textContent);
-        if (!mainHeading || tabShouldExclude(mainHeading)) return;
-
-        const tabs = Array.from(sectionEl.querySelectorAll('.horizontaltab-nav-link'));
-
-        tabs.forEach(tab => {
-          const tabname = clean(tab.textContent);
-          const panelId = tab.getAttribute('href');
-          if (!panelId) return;
-
-          const panel = sectionEl.querySelector(panelId);
-          if (!panel) return; // Include even inactive
-
-          const tabcards = Array.from(panel.querySelectorAll('a'))
-            .map(card => {
-              const text = clean(card.querySelector('h3, h4, p')?.textContent);
-              const href = card.getAttribute('href') || '';
-              return text && !tabShouldExclude(text) ? { text, href } : null;
-            })
-            .filter(Boolean);
-
-          addTabCard(mainHeading, tabname, tabcards);
-        });
-      });
-      //--------------------END CARDS-------------------------------------------------------------------------------
-
-
-
-      const cardSections = Array.from(sectionMap.values());
-      sections.push({ cards: cardSections });
-      return {
-        url: window.location.href,
-        title: clean(document.title),
-        //description: metaDescription,
-        page: sections,
-      };
-    });
-
-
-    await browser.close();
-    res.json(data);
-
+    const result = await scrapeTree(targetUrl, Number(maxDepth) || 4);
+    // ensure it’s plain JSON (no circulars)
+    return res.json(JSON.parse(JSON.stringify(result)));
   } catch (err) {
-    console.error('Scraping failed:', err);
-    res.status(500).json({ message: 'Error scraping content' });
+    console.error("[ERROR]", err);
+    return res.status(500).json({ message: err.message || "Scrape failed" });
   }
 };
-
-
-
-
-
-
-
-
-
-
 
 
 
