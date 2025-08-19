@@ -9,6 +9,8 @@ import {
 import {startCrawl} from '../controllers/cr_link_content.js';
 import { GetLinks } from '../controllers/cr_link_only.js';
 import { GetLinksFlatWithTopics } from '../controllers/cr_link_flat.js';
+import { scrapePageContentWithCardsListing } from '../controllers/scrape-relevant-cards-breadcrumbs-list.js';
+import { scrapePageContentWithCardsListingWithSection } from '../controllers/scrape-relevant-cards-breadcrumbs-list-content.js';
 
 const router = express.Router();
 
@@ -21,6 +23,10 @@ router.post('/scrape-full', scrapeFullPageContent);
 router.post('/getlinkscon',startCrawl) // content + links 
 router.post('/getlinks',GetLinks) // links with children only
 router.post('/getlinks_flat',GetLinksFlatWithTopics) // links with children only
+
+router.post('/scrape-relevant-cards-breadcrumbs-list',scrapePageContentWithCardsListing) 
+router.post('/scrape-relevant-cards-breadcrumbs-list-content',scrapePageContentWithCardsListingWithSection) 
+
 
 
 
