@@ -11,6 +11,7 @@ import { GetLinks } from '../controllers/cr_link_only.js';
 import { GetLinksFlatWithTopics } from '../controllers/cr_link_flat.js';
 import { scrapePageContentWithCardsListing } from '../controllers/scrape-relevant-cards-breadcrumbs-list.js';
 import { scrapePageContentWithCardsListingWithSection } from '../controllers/scrape-relevant-cards-breadcrumbs-list-content.js';
+import { mainScrapePageContentWithCardsListing } from '../controllers/main-scrape_page_content_cards_breadcrumbs_listing.js';
 
 const router = express.Router();
 
@@ -28,6 +29,7 @@ router.post('/scrape-relevant-cards-breadcrumbs-list',scrapePageContentWithCards
 router.post('/scrape-relevant-cards-breadcrumbs-list-content',scrapePageContentWithCardsListingWithSection) 
 
 
+router.post('/main-scrape-cards-breadcrumbs-list-content',mainScrapePageContentWithCardsListing); // page content with cards array , breadcrumbs array
 
 
 //export link 
